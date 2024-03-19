@@ -7,6 +7,9 @@ public class SceneScope : MonoBehaviour
 {
     private void OnDestroy()
     {
+        if(Scopy.Quiting)
+            return;
+        
         Scopy.RemoveSceneScope(gameObject.scene);
     }
 }

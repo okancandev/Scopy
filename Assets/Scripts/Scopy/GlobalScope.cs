@@ -6,6 +6,9 @@ public class GlobalScope : MonoBehaviour
 {
     private void OnDestroy()
     {
+        if(Scopy.Quiting)
+            return;
+        
         Scopy.RemoveGlobalScope();
     }
 }

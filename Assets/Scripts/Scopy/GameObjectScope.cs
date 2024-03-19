@@ -6,6 +6,9 @@ public class GameObjectScope : MonoBehaviour
 {
     private void OnDestroy()
     {
+        if(Scopy.Quiting)
+            return;
+        
         Scopy.RemoveGameObjectScope(gameObject);
     }
 }

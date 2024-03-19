@@ -9,6 +9,19 @@ public static class Scopy
     private static Dictionary<Scene, Scope> _sceneScopes;
     private static Dictionary<GameObject, Scope> _gameObjectScopes;
 
+    public static bool Quiting { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod]
+    private static void Init()
+    {
+        Application.quitting += OnQuit;
+    }
+
+    private static void OnQuit()
+    {
+        Quiting = true;
+    }
+
     public static Scope GetGlobalScope()
     {
         if (_globalScope != null)
