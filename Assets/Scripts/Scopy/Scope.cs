@@ -12,7 +12,7 @@ public class Scope
     
     public void Add<T>(T service) 
     {
-        _services.Add(typeof(T), service);
+        _services.Add(service.GetType(), service);
     }
     
     public bool Remove(object obj) 
