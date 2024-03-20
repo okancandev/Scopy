@@ -13,7 +13,7 @@ public class Scope
         _services.Add(type, service);
     }
     
-    public void Add<T>(T service) 
+    public void Add(object service)
     {
         _services.Add(service.GetType(), service);
     }
@@ -26,11 +26,6 @@ public class Scope
     public bool Remove(Type type) 
     {
         return _services.Remove(type);
-    }
-    
-    public void Remove<T>() 
-    {
-        _services.Remove(typeof(T));
     }
 
     public object Get(Type serviceType) 
