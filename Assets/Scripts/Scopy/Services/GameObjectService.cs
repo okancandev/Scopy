@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameObjectService : MonoBehaviour
+public abstract class GameObjectService : MonoBehaviour
 {
     private bool _awake;
     
