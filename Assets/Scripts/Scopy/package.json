@@ -1,0 +1,21 @@
+{
+    "name": "dev.okancan.scopy",
+    "displayName": "Scopy",
+    "version": "0.0.1",
+    "unity": "2022.3",
+    "description": "Simple service provider solution for unity3d.",
+    "keywords": [
+        "unity",
+        "unity3d",
+        "okancandev",
+        "service provider",
+        "service locator"
+    ],
+    "dependencies": {},
+    "license": "MIT",
+    "homepage": "https://github.com/okancandev/scopy.git",
+    "author": {
+      "name": "Okan Can Buğdacı",
+      "url": "https://github.com/okancandev"
+    }
+  }
