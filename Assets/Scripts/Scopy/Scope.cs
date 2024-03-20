@@ -4,6 +4,9 @@ using System.Collections.Generic;
 public class Scope
 {
     private readonly Dictionary<Type, object> _services = new();
+    
+    //TODO make this internal
+    public Dictionary<Type, object> Services => _services;
 
     public void Add(Type type, object service) 
     {

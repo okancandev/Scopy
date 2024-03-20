@@ -8,6 +8,11 @@ public static class Scopy
     private static Scope _globalScope;
     private static Dictionary<Scene, Scope> _sceneScopes;
     private static Dictionary<GameObject, Scope> _gameObjectScopes;
+    
+    //TODO make those internal
+    public static Scope GlobalScope => _globalScope;
+    public static Dictionary<Scene, Scope> SceneScopes => _sceneScopes;
+    public static Dictionary<GameObject, Scope> GameObjectScopes => _gameObjectScopes;
 
     public static bool Quiting { get; private set; }
 
