@@ -7,7 +7,7 @@ public abstract class Service : MonoBehaviour
 {
     private bool _awake;
     
-    private void Awake()
+    protected void Awake()
     {
         _awake = true;
         gameObject.GetGlobalScope().Add(this);
@@ -18,7 +18,7 @@ public abstract class Service : MonoBehaviour
         return gameObject.GetGlobalScope().Get<T>();
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         if (_awake && !Scopy.Quiting)
             gameObject.GetGlobalScope().Remove(this);
