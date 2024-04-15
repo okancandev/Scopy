@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Scopy.Editor
+namespace Okancandev.Scopy.Editor
 {
     public sealed class ScopyEditorWindow : EditorWindow
     {

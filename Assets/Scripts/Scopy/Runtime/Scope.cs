@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Scopy
+namespace Okancandev.Scopy
 {
     public class Scope
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Scopy
+namespace Okancandev.Scopy
 {
     public static class Scopy
     {

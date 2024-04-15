@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scopy.User
+namespace Okancandev.Scopy.User
 {
     public abstract class Service : MonoBehaviour
     {

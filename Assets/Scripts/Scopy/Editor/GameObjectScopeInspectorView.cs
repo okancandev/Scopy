@@ -1,8 +1,8 @@
-using Scopy;
+using Okancandev.Scopy;
 using UnityEditor;
 using UnityEngine;
 
-namespace Scopy.Editor
+namespace Okancandev.Scopy.Editor
 {
     [CustomEditor(typeof(GameObjectScope))]
     public class GameObjectScopeInspectorView : UnityEditor.Editor
