@@ -2,28 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SceneService : MonoBehaviour
+namespace Scopy.User
 {
-    private bool _awake;
-    
-    protected void Awake()
+    public abstract class SceneService : MonoBehaviour
     {
-        _awake = true;
-        gameObject.GetSceneScope().Add(this);
-    }
+        private bool _awake;
     
-    protected T GetService<T>()
-    {
-        var sceneScopeResult = gameObject.GetSceneScope().Get<T>();
-        if (sceneScopeResult != null)
-            return sceneScopeResult;
+        protected void Awake()
+        {
+            _awake = true;
+            gameObject.GetSceneScope().Add(this);
+        }
+    
+        protected T GetService<T>()
+        {
+            var sceneScopeResult = gameObject.GetSceneScope().Get<T>();
+            if (sceneScopeResult != null)
+                return sceneScopeResult;
         
-        return gameObject.GetGlobalScope().Get<T>();
-    }
+            return gameObject.GetGlobalScope().Get<T>();
+        }
 
-    protected void OnDestroy()
-    {
-        if (_awake && !Scopy.Quiting)
-            gameObject.GetSceneScope().Remove(this);
+        protected void OnDestroy()
+        {
+            if (_awake && !Scopy.Quiting)
+                gameObject.GetSceneScope().Remove(this);
+        }
     }
 }

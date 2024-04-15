@@ -1,22 +1,26 @@
+using Scopy;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GameObjectScope))]
-public class GameObjectScopeInspectorView : Editor
+namespace Scopy.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(GameObjectScope))]
+    public class GameObjectScopeInspectorView : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-        GameObjectScope gameObjectScope = (GameObjectScope)target;
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            GameObjectScope gameObjectScope = (GameObjectScope)target;
         
-        foreach (var (type, value) in gameObjectScope.gameObject.GetScope().Services)
-        {
-            ScopyEditorWindow.DrawServiceField(type, value);
-        }
+            foreach (var (type, value) in gameObjectScope.gameObject.GetScope().Services)
+            {
+                ScopyEditorWindow.DrawServiceField(type, value);
+            }
 
-        if (GUILayout.Button("Open Editor Window"))
-        {
-            ScopyEditorWindow.Open();
+            if (GUILayout.Button("Open Editor Window"))
+            {
+                ScopyEditorWindow.Open();
+            }
         }
     }
 }

@@ -1,20 +1,24 @@
+using Scopy;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(GlobalScope))]
-public class GlobalScopeInspectorView : Editor
+namespace Scopy.Editor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(GlobalScope))]
+    public class GlobalScopeInspectorView : UnityEditor.Editor
     {
-        base.OnInspectorGUI();
-        foreach (var (type, value) in Scopy.GlobalScope.Services)
+        public override void OnInspectorGUI()
         {
-            ScopyEditorWindow.DrawServiceField(type, value);
-        }
+            base.OnInspectorGUI();
+            foreach (var (type, value) in Scopy.GlobalScope.Services)
+            {
+                ScopyEditorWindow.DrawServiceField(type, value);
+            }
 
-        if (GUILayout.Button("Open Editor Window"))
-        {
-            ScopyEditorWindow.Open();
+            if (GUILayout.Button("Open Editor Window"))
+            {
+                ScopyEditorWindow.Open();
+            }
         }
     }
 }

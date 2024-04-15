@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("")]
-public class GlobalScope : MonoBehaviour
+namespace Scopy
 {
-    private void OnDestroy()
+    [AddComponentMenu("")]
+    public class GlobalScope : MonoBehaviour
     {
-        if(Scopy.Quiting)
-            return;
+        private void OnDestroy()
+        {
+            if(Scopy.Quiting)
+                return;
         
-        Scopy.RemoveGlobalScope();
+            Scopy.RemoveGlobalScope();
+        }
     }
 }
