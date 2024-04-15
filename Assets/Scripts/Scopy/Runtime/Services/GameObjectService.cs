@@ -7,11 +7,19 @@ namespace Scopy.User
     public abstract class GameObjectService : MonoBehaviour
     {
         private bool _awake;
+
+        public bool IsAwake() => _awake;
     
-        protected void Awake()
+        private void Awake()
         {
             _awake = true;
             gameObject.GetScope().Add(this);
+            OnAwake();
+        }
+
+        protected virtual void OnAwake()
+        {
+            
         }
     
         protected T GetService<T>()
@@ -27,10 +35,18 @@ namespace Scopy.User
             return gameObject.GetGlobalScope().Get<T>();
         }
 
-        protected void OnDestroy()
+        private void OnDestroy()
         {
             if (_awake && !Scopy.Quiting)
+            {
                 gameObject.GetScope().Remove(this);
+                OnSafeDestroy();
+            }
+        }
+        
+        protected virtual void OnSafeDestroy()
+        {
+            
         }
     }
 }

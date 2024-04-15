@@ -7,11 +7,19 @@ namespace Scopy.User
     public abstract class SceneService : MonoBehaviour
     {
         private bool _awake;
+        
+        public bool IsAwake() => _awake;
     
         protected void Awake()
         {
             _awake = true;
             gameObject.GetSceneScope().Add(this);
+            OnAwake();
+        }
+        
+        protected virtual void OnAwake()
+        {
+            
         }
     
         protected T GetService<T>()
@@ -26,7 +34,15 @@ namespace Scopy.User
         protected void OnDestroy()
         {
             if (_awake && !Scopy.Quiting)
+            {
                 gameObject.GetSceneScope().Remove(this);
+                OnSafeDestroy();
+            }
+        }
+        
+        protected virtual void OnSafeDestroy()
+        {
+            
         }
     }
 }
