@@ -7,7 +7,7 @@ namespace Okancandev.Scopy
     {
         private readonly Dictionary<Type, object> _services = new();
     
-        internal Dictionary<Type, object> Services => _services;
+        public IReadOnlyDictionary<Type, object> Services => _services;
 
         public void Add(Type type, object service) 
         {

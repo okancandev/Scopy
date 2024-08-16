@@ -52,7 +52,7 @@ namespace Okancandev.Scopy.Editor
             GUILayout.EndScrollView();
         }
 
-        private static void DrawServices(Dictionary<Type, object> globalScopeServices, string filter = null)
+        private static void DrawServices(IReadOnlyDictionary<Type, object> globalScopeServices, string filter = null)
         {
             foreach (var (type, service) in globalScopeServices)
             {
