@@ -31,14 +31,38 @@ namespace Okancandev.Scopy
 
         public object Get(Type serviceType) 
         {
-            _services.TryGetValue(serviceType, out var service);
-            return service;
+            return _services[serviceType];
         }
 
         public T Get<T>()
         {
-            _services.TryGetValue(typeof(T), out var service);
-            return (T)service;
+            return (T)_services[typeof(T)];
+        }
+        
+        public object GetOrDefault(Type serviceType, object @default = default)
+        {
+            return _services.TryGetValue(serviceType, out object value) 
+                ? value 
+                : @default;
+        }
+
+        public T GetOrDefault<T>(T @default = default) where T : class
+        {
+            return TryGet(out T value) 
+                ? value 
+                : @default;
+        }
+        
+        public bool TryGet(Type serviceType, out object service) 
+        {
+            return _services.TryGetValue(serviceType, out service);
+        }
+
+        public bool TryGet<T>(out T service) where T : class
+        {
+            bool result = _services.TryGetValue(typeof(T), out var value);
+            service = (T)value;
+            return result;
         }
     }
 }
