@@ -122,3 +122,8 @@ namespace Okancandev.Scopy
         }
     }
 }
+
+public interface IScopyEditorCustomGUI
+{
+    void OnScopyEditorGUI();
+}

@@ -67,13 +67,22 @@ namespace Okancandev.Scopy.Editor
             {
                 if (service is Object unityObject)
                 {
+                    EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.ObjectField(type.FullName, unityObject, unityObject.GetType(), false);
+                    if(service is IScopyEditorCustomGUI customGUIService)
+                        customGUIService.OnScopyEditorGUI();
+                    else
+                        EditorGUILayout.LabelField(service.ToString());
+                    EditorGUILayout.EndHorizontal();
                 }
                 else
                 {
                     EditorGUILayout.BeginHorizontal();
                     EditorGUILayout.LabelField(type.FullName);
-                    EditorGUILayout.LabelField(service.ToString());
+                    if(service is IScopyEditorCustomGUI customGUIService)
+                        customGUIService.OnScopyEditorGUI();
+                    else
+                        EditorGUILayout.LabelField(service.ToString());
                     EditorGUILayout.EndHorizontal();
                 }
             }
@@ -84,7 +93,15 @@ namespace Okancandev.Scopy.Editor
                     if (type.FullName != null &&
                         (type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase) ||
                          unityObject.name.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
+                    {
+                        EditorGUILayout.BeginHorizontal();
                         EditorGUILayout.ObjectField(type.FullName, unityObject, unityObject.GetType(), false);
+                        if(service is IScopyEditorCustomGUI customGUIService)
+                            customGUIService.OnScopyEditorGUI();
+                        else
+                            EditorGUILayout.LabelField(service.ToString());
+                        EditorGUILayout.EndHorizontal();
+                    }
                 }
                 else
                 {
@@ -93,7 +110,10 @@ namespace Okancandev.Scopy.Editor
                     {
                         EditorGUILayout.BeginHorizontal();
                         EditorGUILayout.LabelField(type.FullName);
-                        EditorGUILayout.LabelField(service.ToString());
+                        if(service is IScopyEditorCustomGUI customGUIService)
+                            customGUIService.OnScopyEditorGUI();
+                        else
+                            EditorGUILayout.LabelField(service.ToString());
                         EditorGUILayout.EndHorizontal();
                     }
                 }
