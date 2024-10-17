@@ -46,7 +46,7 @@ namespace Okancandev.Scopy
                 : @default;
         }
 
-        public T GetOrDefault<T>(T @default = default) where T : class
+        public T GetOrDefault<T>(T @default = default)
         {
             return TryGet(out T value) 
                 ? value 
@@ -58,7 +58,7 @@ namespace Okancandev.Scopy
             return _services.TryGetValue(serviceType, out service);
         }
 
-        public bool TryGet<T>(out T service) where T : class
+        public bool TryGet<T>(out T service)
         {
             bool result = _services.TryGetValue(typeof(T), out var value);
             service = (T)value;
