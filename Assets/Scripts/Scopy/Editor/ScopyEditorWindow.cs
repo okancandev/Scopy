@@ -52,23 +52,23 @@ namespace Okancandev.Scopy.Editor
             GUILayout.EndScrollView();
         }
 
-        private static void DrawServices(IReadOnlyDictionary<Type, object> globalScopeServices, string filter = null)
+        private static void DrawServices(IReadOnlyDictionary<ServiceIdentifier, object> globalScopeServices, string filter = null)
         {
-            foreach (var (type, service) in globalScopeServices)
+            foreach (var (identifier, service) in globalScopeServices)
             {
-                DrawServiceField(type, service, filter);
+                DrawServiceField(identifier, service, filter);
             }
         }
 
         //sorry for super ugly method
-        public static void DrawServiceField(Type type, object service, string filter = null)
+        public static void DrawServiceField(ServiceIdentifier identifier, object service, string filter = null)
         {
             if (string.IsNullOrEmpty(filter))
             {
                 if (service is Object unityObject)
                 {
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.ObjectField(type.FullName, unityObject, unityObject.GetType(), false);
+                    EditorGUILayout.ObjectField(identifier.Type.FullName, unityObject, unityObject.GetType(), false);
                     if(service is IScopyEditorCustomGUI customGUIService)
                         customGUIService.OnScopyEditorGUI();
                     else
@@ -78,7 +78,7 @@ namespace Okancandev.Scopy.Editor
                 else
                 {
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField(type.FullName);
+                    EditorGUILayout.LabelField(identifier.Type.FullName);
                     if(service is IScopyEditorCustomGUI customGUIService)
                         customGUIService.OnScopyEditorGUI();
                     else
@@ -90,12 +90,12 @@ namespace Okancandev.Scopy.Editor
             {
                 if (service is Object unityObject)
                 {
-                    if (type.FullName != null &&
-                        (type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase) ||
+                    if (identifier.Type.FullName != null &&
+                        (identifier.Type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase) ||
                          unityObject.name.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
                     {
                         EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.ObjectField(type.FullName, unityObject, unityObject.GetType(), false);
+                        EditorGUILayout.ObjectField(identifier.Type.FullName, unityObject, unityObject.GetType(), false);
                         if(service is IScopyEditorCustomGUI customGUIService)
                             customGUIService.OnScopyEditorGUI();
                         else
@@ -105,11 +105,11 @@ namespace Okancandev.Scopy.Editor
                 }
                 else
                 {
-                    if (type.FullName != null &&
-                        type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
+                    if (identifier.Type.FullName != null &&
+                        identifier.Type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
                     {
                         EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.LabelField(type.FullName);
+                        EditorGUILayout.LabelField(identifier.Type.FullName);
                         if(service is IScopyEditorCustomGUI customGUIService)
                             customGUIService.OnScopyEditorGUI();
                         else
