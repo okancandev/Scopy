@@ -12,10 +12,12 @@ namespace Okancandev.Scopy
         private static Scope _globalScope;
         private static Dictionary<Scene, Scope> _sceneScopes;
         private static Dictionary<GameObject, Scope> _gameObjectScopes;
+        private static Dictionary<string, Scope> _customScopes;
 
         internal static Scope GlobalScope => _globalScope;
         internal static Dictionary<Scene, Scope> SceneScopes => _sceneScopes;
         internal static Dictionary<GameObject, Scope> GameObjectScopes => _gameObjectScopes;
+        internal static Dictionary<string, Scope> CustomScopes => _customScopes;
 
         public static bool Quiting { get; private set; }
 
@@ -89,6 +91,27 @@ namespace Okancandev.Scopy
         {
             return _gameObjectScopes.Remove(gameObject);
         }
+
+        public static Scope GetCustomScope(string scopeName)
+        {
+            if (_customScopes == null)
+                _customScopes = new Dictionary<string, Scope>();
+
+            if (_customScopes.TryGetValue(scopeName, out var scope))
+                return scope;
+            
+            var newScope = new Scope();
+            _customScopes.Add(scopeName, newScope);
+            return newScope;
+        }
+
+        public static void RemoveCustomScope(string scopeName)
+        {
+            if (_customScopes == null)
+                _customScopes = new Dictionary<string, Scope>();
+
+            _customScopes.Remove(scopeName);
+        }
     }
 
     public static class ScopySceneExtensions
@@ -117,6 +140,24 @@ namespace Okancandev.Scopy
         }
 
         public static Scope GetGlobalScope(this GameObject gameObject)
+        {
+            return Scopy.GetGlobalScope();
+        }
+    }
+
+    public static class ScopyComponentExtensions
+    {
+        public static Scope GetSceneScope(this Component component)
+        {
+            return Scopy.GetSceneScope(component.gameObject.scene);
+        }
+
+        public static Scope GetScope(this Component component)
+        {
+            return Scopy.GetGameObjectScope(component.gameObject);
+        }
+
+        public static Scope GetGlobalScope(this Component component)
         {
             return Scopy.GetGlobalScope();
         }
