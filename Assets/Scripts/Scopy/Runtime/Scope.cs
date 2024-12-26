@@ -246,4 +246,9 @@ public struct ServiceIdentifier
         Id = id;
         Tag = tag;
     }
+
+    public override string ToString()
+    {
+        return $"{Type.Name} ({Tag}) ({Id})";
+    }
 }

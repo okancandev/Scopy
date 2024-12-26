@@ -144,24 +144,6 @@ namespace Okancandev.Scopy
             return Scopy.GetGlobalScope();
         }
     }
-
-    public static class ScopyComponentExtensions
-    {
-        public static Scope GetSceneScope(this Component component)
-        {
-            return Scopy.GetSceneScope(component.gameObject.scene);
-        }
-
-        public static Scope GetScope(this Component component)
-        {
-            return Scopy.GetGameObjectScope(component.gameObject);
-        }
-
-        public static Scope GetGlobalScope(this Component component)
-        {
-            return Scopy.GetGlobalScope();
-        }
-    }
 }
 
 public interface IScopyEditorCustomGUI
