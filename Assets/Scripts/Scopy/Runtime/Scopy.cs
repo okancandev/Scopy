@@ -9,108 +9,70 @@ namespace Okancandev.Scopy
 {
     public static class Scopy
     {
-        private static Scope _globalScope;
-        private static Dictionary<Scene, Scope> _sceneScopes;
-        private static Dictionary<GameObject, Scope> _gameObjectScopes;
-        private static Dictionary<string, Scope> _customScopes;
+        private static ScopyManager _defaultInstance;
 
-        internal static Scope GlobalScope => _globalScope;
-        internal static Dictionary<Scene, Scope> SceneScopes => _sceneScopes;
-        internal static Dictionary<GameObject, Scope> GameObjectScopes => _gameObjectScopes;
-        internal static Dictionary<string, Scope> CustomScopes => _customScopes;
-
-        public static bool Quiting { get; private set; }
-
-        [RuntimeInitializeOnLoadMethod]
-        private static void Init()
+        public static ScopyManager DefaultInstance
         {
-            Application.quitting += OnQuit;
+            get => _defaultInstance ??= new ScopyManager();
+            set => _defaultInstance = value;
         }
 
-        private static void OnQuit()
+        public static Scope GlobalScope()
         {
-            Quiting = true;
+            var scope =  DefaultInstance.GetOrCreateScope(DefaultInstance);
+            if (!DefaultInstance.TryGetScopeComponent(scope, out _))
+            {
+                var globalScopeObject = new GameObject();
+                globalScopeObject.name = "GlobalScopeTracker";
+                globalScopeObject.AddComponent<AutoGlobalScopeTracker>();
+                GameObject.DontDestroyOnLoad(globalScopeObject);
+            }
+            return scope;
+        }
+        
+        public static Scope SceneScope(Scene scene)
+        {
+            var scope =  DefaultInstance.GetOrCreateScope(scene);
+            if (!DefaultInstance.TryGetScopeComponent(scope, out _))
+            {
+                var sceneScopeObject = new GameObject();
+                sceneScopeObject.name = "SceneScopeTracker";
+                sceneScopeObject.AddComponent<AutoSceneScopeTracker>();
+                SceneManager.MoveGameObjectToScene(sceneScopeObject, scene);
+            }
+            return DefaultInstance.GetOrCreateScope(scene);
+        }
+        
+        public static Scope GameObjectScope(GameObject gameObject)
+        {
+            var scope =  DefaultInstance.GetOrCreateScope(gameObject);
+            if (!DefaultInstance.TryGetScopeComponent(scope, out _))
+            {
+                gameObject.AddComponent<AutoGameObjectScopeTracker>();
+            }
+            return DefaultInstance.GetOrCreateScope(gameObject);
+        }
+        
+        public static Scope CustomScope(object owner)
+        {
+#if UNITY_EDITOR
+            //warn about not to use null, Scene or Gameobject in here
+#endif
+            return DefaultInstance.GetOrCreateScope(owner);
         }
 
-        public static Scope GetGlobalScope()
+        public static bool RemoveCustomScope(object owner)
         {
-            if (_globalScope != null)
-                return _globalScope;
-
-            var newScope = new Scope();
-            var globalScopeObject = new GameObject();
-            globalScopeObject.name = "GlobalScope";
-            globalScopeObject.AddComponent<GlobalScope>();
-            GameObject.DontDestroyOnLoad(globalScopeObject);
-            _globalScope = newScope;
-            return newScope;
+#if UNITY_EDITOR
+            //warn about not to use null, Scene or Gameobject in here
+#endif
+            return DefaultInstance.RemoveScope(owner);
         }
 
-        public static void RemoveGlobalScope()
+        public static void Reset()
         {
-            _globalScope = new Scope();
-        }
-
-        public static Scope GetSceneScope(Scene scene)
-        {
-            if (_sceneScopes == null)
-                _sceneScopes = new Dictionary<Scene, Scope>();
-
-            if (_sceneScopes.TryGetValue(scene, out var scope))
-                return scope;
-
-            var newScope = new Scope();
-            var sceneScopeObject = new GameObject();
-            sceneScopeObject.name = "SceneScope";
-            sceneScopeObject.AddComponent<SceneScope>();
-            SceneManager.MoveGameObjectToScene(sceneScopeObject, scene);
-            _sceneScopes.Add(scene, newScope);
-            return newScope;
-        }
-
-        internal static bool RemoveSceneScope(Scene scene)
-        {
-            return _sceneScopes.Remove(scene);
-        }
-
-        public static Scope GetGameObjectScope(GameObject gameObject)
-        {
-            if (_gameObjectScopes == null)
-                _gameObjectScopes = new Dictionary<GameObject, Scope>();
-
-            if (_gameObjectScopes.TryGetValue(gameObject, out var scope))
-                return scope;
-
-            var newScope = new Scope();
-            gameObject.AddComponent<GameObjectScope>();
-            _gameObjectScopes.Add(gameObject, newScope);
-            return newScope;
-        }
-
-        internal static bool RemoveGameObjectScope(GameObject gameObject)
-        {
-            return _gameObjectScopes.Remove(gameObject);
-        }
-
-        public static Scope GetCustomScope(string scopeName)
-        {
-            if (_customScopes == null)
-                _customScopes = new Dictionary<string, Scope>();
-
-            if (_customScopes.TryGetValue(scopeName, out var scope))
-                return scope;
-            
-            var newScope = new Scope();
-            _customScopes.Add(scopeName, newScope);
-            return newScope;
-        }
-
-        public static void RemoveCustomScope(string scopeName)
-        {
-            if (_customScopes == null)
-                _customScopes = new Dictionary<string, Scope>();
-
-            _customScopes.Remove(scopeName);
+            DefaultInstance.DestroyComponents();
+            DefaultInstance = null;
         }
     }
 }

@@ -5,32 +5,32 @@ namespace Okancandev.Scopy
 {
     public static class ScopySceneExtensions
     {
-        public static Scope GetScope(this Scene scene)
+        public static Scope Scope(this Scene scene)
         {
-            return Scopy.GetSceneScope(scene);
+            return Scopy.SceneScope(scene);
         }
 
-        public static Scope GetGlobalScope(this Scene scene)
+        public static Scope GlobalScope(this Scene scene)
         {
-            return Scopy.GetGlobalScope();
+            return Scopy.GlobalScope();
         }
     }
 
     public static class ScopyGameObjectExtensions
     {
-        public static Scope GetSceneScope(this GameObject gameObject)
+        public static Scope Scope(this GameObject gameObject)
         {
-            return Scopy.GetSceneScope(gameObject.scene);
+            return Scopy.GameObjectScope(gameObject);
+        }
+        
+        public static Scope SceneScope(this GameObject gameObject)
+        {
+            return Scopy.SceneScope(gameObject.scene);
         }
 
-        public static Scope GetScope(this GameObject gameObject)
+        public static Scope GlobalScope(this GameObject gameObject)
         {
-            return Scopy.GetGameObjectScope(gameObject);
-        }
-
-        public static Scope GetGlobalScope(this GameObject gameObject)
-        {
-            return Scopy.GetGlobalScope();
+            return Scopy.GlobalScope();
         }
     }
 }
