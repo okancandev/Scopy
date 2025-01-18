@@ -10,6 +10,8 @@ namespace Okancandev.Scopy
         private readonly Dictionary<object, Scope> _scopes = new();
         private readonly Dictionary<Scope, ScopeTracker> _activeComponents = new();
 
+        public IReadOnlyDictionary<object, Scope> Scopes => _scopes;
+ 
         public Scope GetOrCreateScope(object owner)
         {
             if (_scopes.TryGetValue(owner, out Scope scope))

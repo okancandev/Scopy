@@ -9,7 +9,7 @@ namespace Okancandev.Scopy
 {
     public static class Scopy
     {
-        private static ScopyManager _defaultInstance;
+        internal static ScopyManager _defaultInstance;
 
         public static ScopyManager DefaultInstance
         {
