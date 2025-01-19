@@ -5,10 +5,9 @@ namespace Okancandev.Scopy
 {
     public class Scope
     {
-        private readonly Dictionary<ServiceIdentifier, object> _services = new();
-    
         public IReadOnlyDictionary<ServiceIdentifier, object> Services => _services;
-
+        private readonly Dictionary<ServiceIdentifier, object> _services = new();
+        
         public void Add(ServiceIdentifier identifier, object service) 
         {
             _services.Add(identifier, service);
@@ -62,6 +61,18 @@ namespace Okancandev.Scopy
         public object Get(ServiceIdentifier identifier) 
         {
             return _services[identifier];
+        }
+        
+        public bool TryGet(ServiceIdentifier identifier, out object service) 
+        {
+            return _services.TryGetValue(identifier, out service);
+        }
+        
+        public object GetOrDefault(ServiceIdentifier identifier, object defaultValue = default) 
+        {
+            return TryGet(identifier, out object value) 
+                ? value 
+                : defaultValue;
         }
         
         public object GetSingle(Type type)
@@ -152,56 +163,56 @@ namespace Okancandev.Scopy
             return result;
         }
         
-        public object GetSingleOrDefault(Type type, object defaultValue)
+        public object GetSingleOrDefault(Type type, object defaultValue = default)
         {
             return TryGetSingle(type, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public object GetWithIdOrDefault(Type type, long id, object defaultValue)
+        public object GetWithIdOrDefault(Type type, long id, object defaultValue = default)
         {
             return TryGetWithId(type, id, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public object GetTaggedOrDefault(Type type, object tag, object defaultValue)
+        public object GetTaggedOrDefault(Type type, object tag, object defaultValue = default)
         {
             return TryGetTagged(type, tag, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public object GetTaggedWithIdOrDefault(Type type, long id, object tag, object defaultValue)
+        public object GetTaggedWithIdOrDefault(Type type, long id, object tag, object defaultValue = default)
         {
             return TryGetTaggedWithId(type, id, tag, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public T GetSingleOrDefault<T>(object defaultValue)
+        public T GetSingleOrDefault<T>(object defaultValue = default)
         {
             return TryGetSingle(typeof(T), out object value) 
                 ? (T)value 
                 : (T)defaultValue;
         }
         
-        public T GetWithIdOrDefault<T>(long id, object defaultValue)
+        public T GetWithIdOrDefault<T>(long id, object defaultValue = default)
         {
             return TryGetWithId(typeof(T), id, out object value) 
                 ? (T)value 
                 : (T)defaultValue;
         }
         
-        public T GetTaggedOrDefault<T>(object tag, object defaultValue)
+        public T GetTaggedOrDefault<T>(object tag, object defaultValue = default)
         {
             return TryGetTagged(typeof(T), tag, out object value) 
                 ? (T)value 
                 : (T)defaultValue;
         }
         
-        public T GetTaggedWithIdOrDefault<T>(long id, object tag, object defaultValue)
+        public T GetTaggedWithIdOrDefault<T>(long id, object tag, object defaultValue = default)
         {
             return TryGetTaggedWithId(typeof(T), id, tag, out object value) 
                 ? (T)value 
