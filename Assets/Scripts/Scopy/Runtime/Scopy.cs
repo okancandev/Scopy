@@ -14,7 +14,7 @@ namespace Okancandev.Scopy
         public static ScopyManager DefaultInstance
         {
             get => _defaultInstance ??= new ScopyManager();
-            set => _defaultInstance = value;
+            private set => _defaultInstance = value;
         }
 
         public static Scope GlobalScope()

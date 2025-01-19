@@ -23,15 +23,13 @@ namespace Okancandev.Scopy.Editor
 
         private void OnGUI()
         {
-            _filter = EditorGUILayout.TextField(_filter, EditorStyles.toolbarSearchField);
-            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
-
-            GUILayout.Label("Global Scope");
-
             if (Scopy._defaultInstance == null)
             {
                 return;
             }
+            
+            _filter = EditorGUILayout.TextField(_filter, EditorStyles.toolbarSearchField);
+            _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
 
             var scopes = Scopy.DefaultInstance.Scopes;
             
@@ -39,6 +37,7 @@ namespace Okancandev.Scopy.Editor
             {
                 if (owner == Scopy.DefaultInstance)
                 {
+                    GUILayout.Label("Global Scope");
                     DrawServices(scope.Services, _filter);
                 }
             }
@@ -63,7 +62,7 @@ namespace Okancandev.Scopy.Editor
             
             foreach (var (owner, scope) in scopes)
             {
-                if (owner != Scopy.DefaultInstance && owner is not GameObject or Scene)
+                if (owner is not (ScopyManager or Scene or GameObject))
                 {
                     GUILayout.Label($"{owner} Custom Scope");
                     DrawServices(scope.Services, _filter);
