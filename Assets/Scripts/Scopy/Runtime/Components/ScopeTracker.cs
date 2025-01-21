@@ -11,7 +11,7 @@ namespace Okancandev.Scopy
         protected void Awake()
         {
             ScopyManager ??= Scopy.DefaultInstance;
-            ScopyManager.RegisterComponent(ScopyManager.GetOrCreateScope(GetOwnerObject()), this);
+            ScopyManager.RegisterTrackerComponent(ScopyManager.GetOrCreateScope(GetOwnerObject()), this);
         }
 
         public abstract object GetOwnerObject();
@@ -21,7 +21,7 @@ namespace Okancandev.Scopy
         {
             if (ScopyManager != null)
             {
-                ScopyManager.RemoveComponent(this);
+                ScopyManager.RemoveTrackerComponent(this);
             }
         }
     }

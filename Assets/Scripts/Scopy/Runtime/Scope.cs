@@ -7,6 +7,8 @@ namespace Okancandev.Scopy
     {
         public IReadOnlyDictionary<ServiceIdentifier, object> Services => _services;
         private readonly Dictionary<ServiceIdentifier, object> _services = new();
+
+        private HierarchicScope _hierarchicScope;
         
         public void Add(ServiceIdentifier identifier, object service) 
         {
@@ -217,6 +219,11 @@ namespace Okancandev.Scopy
             return TryGetTaggedWithId(typeof(T), id, tag, out object value) 
                 ? (T)value 
                 : (T)defaultValue;
+        }
+
+        public HierarchicScope AsHierarchic(ScopyManager scopyManager = null)
+        {
+            return _hierarchicScope ??= new HierarchicScope(this, scopyManager);
         }
     }
 }

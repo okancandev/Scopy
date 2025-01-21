@@ -19,38 +19,17 @@ namespace Okancandev.Scopy
 
         public static Scope GlobalScope()
         {
-            var scope =  DefaultInstance.GetOrCreateScope(DefaultInstance);
-            if (!DefaultInstance.TryGetScopeComponent(scope, out _))
-            {
-                var globalScopeObject = new GameObject();
-                globalScopeObject.name = "GlobalScopeTracker";
-                globalScopeObject.AddComponent<AutoGlobalScopeTracker>();
-                GameObject.DontDestroyOnLoad(globalScopeObject);
-            }
-            return scope;
+            return DefaultInstance.GlobalScope();
         }
         
         public static Scope SceneScope(Scene scene)
         {
-            var scope =  DefaultInstance.GetOrCreateScope(scene);
-            if (!DefaultInstance.TryGetScopeComponent(scope, out _))
-            {
-                var sceneScopeObject = new GameObject();
-                sceneScopeObject.name = "SceneScopeTracker";
-                sceneScopeObject.AddComponent<AutoSceneScopeTracker>();
-                SceneManager.MoveGameObjectToScene(sceneScopeObject, scene);
-            }
-            return DefaultInstance.GetOrCreateScope(scene);
+            return DefaultInstance.SceneScope(scene);
         }
         
         public static Scope GameObjectScope(GameObject gameObject)
         {
-            var scope =  DefaultInstance.GetOrCreateScope(gameObject);
-            if (!DefaultInstance.TryGetScopeComponent(scope, out _))
-            {
-                gameObject.AddComponent<AutoGameObjectScopeTracker>();
-            }
-            return DefaultInstance.GetOrCreateScope(gameObject);
+            return DefaultInstance.GameObjectScope(gameObject);
         }
         
         public static Scope CustomScope(object owner)

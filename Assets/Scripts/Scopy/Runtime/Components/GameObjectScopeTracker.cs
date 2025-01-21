@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Okancandev.Scopy
 {
-    public class GameObjectScopeTracker : AutoSceneScopeTracker
+    public class GameObjectScopeTracker : AutoGameObjectScopeTracker
     {
         [SerializeField] private ScopeInstaller[] Installers;
 
@@ -12,7 +12,7 @@ namespace Okancandev.Scopy
         {
             ScopyManager ??= Scopy.DefaultInstance;
             var scope = ScopyManager.GetOrCreateScope(GetOwnerObject());
-            ScopyManager.RegisterComponent(scope, this);
+            ScopyManager.RegisterTrackerComponent(scope, this);
             
             foreach (var installer in Installers)
             {

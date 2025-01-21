@@ -12,6 +12,42 @@ namespace Okancandev.Scopy
 
         public IReadOnlyDictionary<object, Scope> Scopes => _scopes;
  
+        public Scope GlobalScope()
+        {
+            var scope = GetOrCreateScope(this);
+            if (!_activeComponents.TryGetValue(scope, out _))
+            {
+                var globalScopeObject = new GameObject();
+                globalScopeObject.name = "GlobalScopeTracker";
+                globalScopeObject.AddComponent<AutoGlobalScopeTracker>();
+                GameObject.DontDestroyOnLoad(globalScopeObject);
+            }
+            return scope;
+        }
+        
+        public Scope SceneScope(Scene scene)
+        {
+            var scope = GetOrCreateScope(scene);
+            if (!_activeComponents.TryGetValue(scope, out _))
+            {
+                var sceneScopeObject = new GameObject();
+                sceneScopeObject.name = "SceneScopeTracker";
+                sceneScopeObject.AddComponent<AutoSceneScopeTracker>();
+                SceneManager.MoveGameObjectToScene(sceneScopeObject, scene);
+            }
+            return scope;
+        }
+        
+        public Scope GameObjectScope(GameObject gameObject)
+        {
+            var scope = GetOrCreateScope(gameObject);
+            if (!_activeComponents.TryGetValue(scope, out _))
+            {
+                gameObject.AddComponent<AutoGameObjectScopeTracker>();
+            }
+            return scope;
+        }
+        
         public Scope GetOrCreateScope(object owner)
         {
             if (_scopes.TryGetValue(owner, out Scope scope))
@@ -30,15 +66,15 @@ namespace Okancandev.Scopy
             _scopes.Add(owner, newScope);
             return newScope;
         }
-
-        public bool HasScope(object owner)
-        {
-            return _scopes.ContainsKey(owner);
-        }
         
         public void AddScope(object owner, Scope scope)
         {
             _scopes.Add(owner, scope);
+        }
+
+        public bool HasScope(object owner)
+        {
+            return _scopes.ContainsKey(owner);
         }
 
         public bool RemoveScope(object owner)
@@ -46,12 +82,12 @@ namespace Okancandev.Scopy
             return _scopes.Remove(owner);
         }
         
-        public void RegisterComponent(Scope scope, ScopeTracker lifecycle)
+        public void RegisterTrackerComponent(Scope scope, ScopeTracker lifecycle)
         {
             _activeComponents.Add(scope, lifecycle);
         }
         
-        public void RemoveComponent(ScopeTracker lifecycle)
+        public void RemoveTrackerComponent(ScopeTracker lifecycle)
         {
             var owner = lifecycle.GetOwnerObject();
             var scope = _scopes[owner];
