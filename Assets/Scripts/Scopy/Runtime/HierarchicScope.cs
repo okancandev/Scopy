@@ -10,31 +10,30 @@ namespace Okancandev.Scopy
     {
         public ScopyManager ScopyManager { get; private set; }
         public Scope Scope { get; private set; }
-        public ScopeTracker ScopeTracker  { get; private set; }
-        public HierarchicScope ParentScope { get; private set; }
+        public object Owner { get; private set; }
+        public HierarchicScope ParentScope { get; set; }
         
-        public HierarchicScope(Scope scope, ScopyManager scopyManager = null)
+        public HierarchicScope(Scope scope, HierarchicScope parentScope = null, ScopyManager scopyManager = null)
         {
-            scopyManager ??= Scopy.DefaultInstance;
-            ScopyManager = scopyManager;
+            ScopyManager = scopyManager ?? Scopy.DefaultInstance;
             Scope = scope;
-            if (scopyManager.TryGetScopeComponent(scope, out var scopeTracker))
+            Owner = ScopyManager.FindOwner(scope);
+            ParentScope = parentScope ?? FindParentScope();
+        }
+
+        private HierarchicScope FindParentScope()
+        {
+            if (Owner == ScopyManager.GlobalScope())
             {
-                ScopeTracker = scopeTracker;
-                if (ScopeTracker is AutoGameObjectScopeTracker gameObjectScopeTracker)
-                {
-                    ParentScope =  scopyManager.SceneScope(gameObjectScopeTracker.gameObject.scene)
-                        .AsHierarchic(scopyManager);
-                }
-                else if (ScopeTracker is AutoSceneScopeTracker)
-                {
-                    ParentScope = scopyManager.GlobalScope().AsHierarchic(scopyManager);
-                }
+                return null;
             }
-            else
+            
+            if (Owner is GameObject gameObjectOwner)
             {
-                ParentScope = scopyManager.GlobalScope().AsHierarchic(scopyManager);
+                return gameObjectOwner.SceneScope().AsHierarchic(ScopyManager);
             }
+
+            return ScopyManager.GlobalScope().AsHierarchic(ScopyManager);
         }
         
         public object Get(ServiceIdentifier identifier)

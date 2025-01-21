@@ -107,6 +107,22 @@ namespace Okancandev.Scopy
             return false;
         }
 
+        public object FindOwner(Scope scope)
+        {
+            if (_activeComponents.TryGetValue(scope, out var component))
+            {
+                return component.GetOwnerObject();
+            }
+
+            foreach (var pair in _scopes)
+            {
+                if (pair.Value == scope)
+                    return pair.Key;
+            }
+
+            return null;
+        }
+
         public void DestroyComponents()
         {
             foreach (var scopyComponent in _activeComponents.Values)

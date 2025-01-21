@@ -8,7 +8,7 @@ namespace Okancandev.Scopy
         public IReadOnlyDictionary<ServiceIdentifier, object> Services => _services;
         private readonly Dictionary<ServiceIdentifier, object> _services = new();
 
-        private HierarchicScope _hierarchicScope;
+        internal HierarchicScope _hierarchicScope;
         
         public void Add(ServiceIdentifier identifier, object service) 
         {
@@ -223,7 +223,7 @@ namespace Okancandev.Scopy
 
         public HierarchicScope AsHierarchic(ScopyManager scopyManager = null)
         {
-            return _hierarchicScope ??= new HierarchicScope(this, scopyManager);
+            return _hierarchicScope ??= new HierarchicScope(this, null, scopyManager);
         }
     }
 }
