@@ -3,69 +3,102 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Okancandev.Scopy
 {
-    public class HierarchicScope
+    public struct HierarchicScope
     {
-        public ScopyManager ScopyManager { get; private set; }
-        public Scope Scope { get; private set; }
-        public object Owner { get; private set; }
-        public HierarchicScope ParentScope { get; set; }
+        private ScopyManager ScopyManager { get; set; }
+        private object Owner { get; set; }
         
-        public HierarchicScope(Scope scope, HierarchicScope parentScope = null, ScopyManager scopyManager = null)
+        public HierarchicScope(object owner, ScopyManager scopyManager = null)
         {
             ScopyManager = scopyManager ?? Scopy.DefaultInstance;
-            Scope = scope;
-            Owner = ScopyManager.FindOwner(scope);
-            ParentScope = parentScope ?? FindParentScope();
+            Owner = owner;
         }
 
-        private HierarchicScope FindParentScope()
+        private Scope GetScope()
         {
-            if (Owner == ScopyManager.GlobalScope())
+            if (Owner is GameObject gameObject)
             {
-                return null;
+                if (ScopyManager.TryGetScope(gameObject, out Scope gameObjectScope))
+                {
+                    return gameObjectScope;
+                }
+                
+                if (ScopyManager.TryGetScope(gameObject.scene, out Scope sceneScope))
+                {
+                    return sceneScope;
+                }
+            }
+
+            if (Owner is Scene scene)
+            {
+                if (ScopyManager.TryGetScope(scene, out Scope sceneScope))
+                {
+                    return sceneScope;
+                }
             }
             
-            if (Owner is GameObject gameObjectOwner)
+            if (ScopyManager.TryGetScope(ScopyManager, out Scope globalScope))
             {
-                return gameObjectOwner.SceneScope().AsHierarchic(ScopyManager);
+                return globalScope;
             }
 
-            return ScopyManager.GlobalScope().AsHierarchic(ScopyManager);
+            //looks like global scope not created yet, just return null
+            return null;
         }
-        
+
+        private object NextOwner()
+        {
+            if (Owner is GameObject gameObject)
+            {
+                return gameObject.scene;
+            }
+
+            return ScopyManager;
+        }
+
         public object Get(ServiceIdentifier identifier)
         {
-            var result = Scope.GetOrDefault(identifier);
-            if (result == default)
+            while (true)
             {
-                if (ParentScope == null)
+                var scope = GetScope();
+                if (scope == null)
                 {
-                    //this always throws by design
-                    return Scope.Get(identifier); 
+                    throw new KeyNotFoundException($"The given key '{identifier}' was not present in the dictionary.");
                 }
-                return ParentScope.GetOrDefault(identifier);
+                
+                if (scope.TryGet(identifier, out object service))
+                {
+                    return service;
+                }
+
+                Owner = NextOwner();
             }
-            return result;
         }
-        
+
         public bool TryGet(ServiceIdentifier identifier, out object service)
         {
-            if (Scope.TryGet(identifier, out service))
+            while (true)
             {
-                return true;
-            }
+                var scope = GetScope();
+                if (scope == null)
+                {
+                    service = default;
+                    return false;
+                }
+                
+                if (scope.TryGet(identifier, out service))
+                {
+                    return true;
+                }
 
-            if (ParentScope != null)
-            {
-                return ParentScope.TryGet(identifier, out service);
+                Owner = NextOwner();
             }
-            
-            return false;
         }
-        
+
         public object GetOrDefault(ServiceIdentifier identifier, object defaultValue = default) 
         {
             return TryGet(identifier, out object value) 

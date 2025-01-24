@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Okancandev.Scopy
 {
+    //rename as scopy instance?
     public sealed class ScopyManager
     {
         private readonly Dictionary<object, Scope> _scopes = new();
@@ -75,6 +76,11 @@ namespace Okancandev.Scopy
         public bool HasScope(object owner)
         {
             return _scopes.ContainsKey(owner);
+        }
+
+        public bool TryGetScope(object owner, out Scope scope)
+        {
+            return _scopes.TryGetValue(owner, out scope);
         }
 
         public bool RemoveScope(object owner)

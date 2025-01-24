@@ -14,6 +14,11 @@ namespace Okancandev.Scopy
         {
             return Scopy.GlobalScope();
         }
+        
+        public static HierarchicScope HierarchicScope(this Scene scene)
+        {
+            return new HierarchicScope(scene);
+        }
     }
 
     public static class ScopyGameObjectExtensions
@@ -31,6 +36,11 @@ namespace Okancandev.Scopy
         public static Scope GlobalScope(this GameObject gameObject)
         {
             return Scopy.GlobalScope();
+        }
+        
+        public static HierarchicScope HierarchicScope(this GameObject gameObject)
+        {
+            return new HierarchicScope(gameObject);
         }
     }
 }
