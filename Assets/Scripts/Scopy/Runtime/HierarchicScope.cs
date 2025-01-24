@@ -41,12 +41,14 @@ namespace Okancandev.Scopy
                 }
             }
             
-            if (ScopyManager.TryGetScope(ScopyManager, out Scope globalScope))
+            if (Owner == ScopyManager.GlobalScopeKey)
             {
-                return globalScope;
+                if (ScopyManager.TryGetScope(ScopyManager, out Scope globalScope))
+                {
+                    return globalScope;
+                }
             }
-
-            //looks like global scope not created yet, just return null
+            
             return null;
         }
 
@@ -57,7 +59,12 @@ namespace Okancandev.Scopy
                 return gameObject.scene;
             }
 
-            return ScopyManager;
+            if (Owner != ScopyManager.GlobalScopeKey)
+            {
+                return ScopyManager.GlobalScopeKey;
+            }
+
+            return null;
         }
 
         public object Get(ServiceIdentifier identifier)
