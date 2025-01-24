@@ -35,7 +35,7 @@ namespace Okancandev.Scopy.Editor
             
             foreach (var (owner, scope) in scopes)
             {
-                if (owner == Scopy.DefaultInstance)
+                if (owner == Scopy.DefaultInstance.GlobalScopeKey)
                 {
                     GUILayout.Label("Global Scope");
                     DrawServices(scope.Services, _filter);

@@ -12,10 +12,11 @@ namespace Okancandev.Scopy
         private readonly Dictionary<Scope, ScopeTracker> _activeComponents = new();
 
         public IReadOnlyDictionary<object, Scope> Scopes => _scopes;
+        public object GlobalScopeKey => this;
  
         public Scope GlobalScope()
         {
-            var scope = GetOrCreateScope(this);
+            var scope = GetOrCreateScope(GlobalScopeKey);
             if (!_activeComponents.TryGetValue(scope, out _))
             {
                 var globalScopeObject = new GameObject();
