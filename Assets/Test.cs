@@ -6,10 +6,6 @@ using UnityEngine;
 
 public class Test : MonoBehaviour, IScopyEditorCustomGUI
 {
-    private void Awake()
-    {
-    }
-
     public override string ToString()
     {
         return "Inited-Started-Ready";
