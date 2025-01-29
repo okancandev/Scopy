@@ -133,9 +133,9 @@ namespace Okancandev.Scopy
             return Get(new ServiceIdentifier(type, id, tag));
         }
         
-        public object GetSingle<T>()
+        public T GetSingle<T>()
         {
-            return Get(new ServiceIdentifier(typeof(T)));
+            return (T)Get(new ServiceIdentifier(typeof(T)));
         }
         
         public T GetWithId<T>(long id)
