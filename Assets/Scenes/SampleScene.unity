@@ -179,14 +179,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 592463213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1063a6c878a6d3c47bf631f3e320a155, type: 3}
+  m_Script: {fileID: 11500000, guid: b80919e537adc8447beec3ee1af7f39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SingleServices:
   - {fileID: 963194230}
   - {fileID: 963194229}
-  StringTaggedMultipleServices: []
-  UnityObjectTaggedMultipleServices: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
