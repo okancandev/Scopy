@@ -12,7 +12,7 @@ namespace Okancandev.Scopy.Editor
             base.OnInspectorGUI();
             AutoSceneScopeTracker scopeTracker = (AutoSceneScopeTracker)target;
             
-            if (scopeTracker.ScopyManager == null)
+            if (scopeTracker.ScopyInstance == null)
             {
                 return;
             }

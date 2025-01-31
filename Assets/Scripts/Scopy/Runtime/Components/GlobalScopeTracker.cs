@@ -14,9 +14,9 @@ namespace Okancandev.Scopy
 
         protected new void Awake()
         {
-            ScopyManager ??= Scopy.DefaultInstance;
-            var scope = ScopyManager.GetOrCreateScope(GetOwnerObject());
-            ScopyManager.RegisterTrackerComponent(scope, this);
+            ScopyInstance ??= Scopy.DefaultInstance;
+            var scope = ScopyInstance.GetOrCreateScope(GetOwnerObject());
+            ScopyInstance.RegisterTrackerComponent(scope, this);
             
             if (DontDestroyOnLoad)
             {

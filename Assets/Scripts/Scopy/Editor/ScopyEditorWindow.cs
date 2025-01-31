@@ -62,7 +62,7 @@ namespace Okancandev.Scopy.Editor
             
             foreach (var (owner, scope) in scopes)
             {
-                if (owner is not (ScopyManager or Scene or GameObject))
+                if (owner is not (ScopyInstance or Scene or GameObject))
                 {
                     GUILayout.Label($"{owner} Custom Scope");
                     DrawServices(scope.Services, _filter);

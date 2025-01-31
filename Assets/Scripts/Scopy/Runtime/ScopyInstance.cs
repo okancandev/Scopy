@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Okancandev.Scopy
 {
-    //rename as scopy instance?
-    public sealed class ScopyManager
+    public sealed class ScopyInstance
     {
         private readonly Dictionary<object, Scope> _scopes = new();
         private readonly Dictionary<Scope, ScopeTracker> _activeComponents = new();

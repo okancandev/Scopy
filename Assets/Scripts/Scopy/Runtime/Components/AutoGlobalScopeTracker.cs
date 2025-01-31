@@ -7,7 +7,7 @@ namespace Okancandev.Scopy
     [AddComponentMenu("")]
     public class AutoGlobalScopeTracker : ScopeTracker
     {
-        public override object GetOwnerObject() => ScopyManager.GlobalScopeKey;
+        public override object GetOwnerObject() => ScopyInstance.GlobalScopeKey;
 
         public override void DestroySelf()
         {

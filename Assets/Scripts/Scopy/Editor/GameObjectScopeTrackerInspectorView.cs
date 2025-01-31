@@ -12,7 +12,7 @@ namespace Okancandev.Scopy.Editor
             base.OnInspectorGUI();
             var scopeTracker = (AutoGameObjectScopeTracker)target;
             
-            if (scopeTracker.ScopyManager == null)
+            if (scopeTracker.ScopyInstance == null)
             {
                 return;
             }
