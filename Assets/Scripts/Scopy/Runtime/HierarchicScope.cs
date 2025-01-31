@@ -31,6 +31,11 @@ namespace Okancandev.Scopy
                 {
                     return sceneScope;
                 }
+                
+                if (ScopyManager.TryGetScope(ScopyManager.GlobalScopeKey, out Scope globalScope))
+                {
+                    return globalScope;
+                }
             }
 
             if (Owner is Scene scene)
@@ -39,11 +44,16 @@ namespace Okancandev.Scopy
                 {
                     return sceneScope;
                 }
+                
+                if (ScopyManager.TryGetScope(ScopyManager.GlobalScopeKey, out Scope globalScope))
+                {
+                    return globalScope;
+                }
             }
             
             if (Owner == ScopyManager.GlobalScopeKey)
             {
-                if (ScopyManager.TryGetScope(ScopyManager, out Scope globalScope))
+                if (ScopyManager.TryGetScope(ScopyManager.GlobalScopeKey, out Scope globalScope))
                 {
                     return globalScope;
                 }
