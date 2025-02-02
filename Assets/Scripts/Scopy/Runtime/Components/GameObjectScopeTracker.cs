@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Okancandev.Scopy
 {
+    [DefaultExecutionOrder(-8000)]
     public class GameObjectScopeTracker : AutoGameObjectScopeTracker
     {
         [SerializeField] private ScopeInstaller[] Installers;
