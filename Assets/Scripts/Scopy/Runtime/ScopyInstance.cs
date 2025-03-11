@@ -13,9 +13,15 @@ namespace Okancandev.Scopy
         public IReadOnlyDictionary<object, Scope> Scopes => _scopes;
         public object GlobalScopeKey => this;
  
-        public Scope GlobalScope()
+        public Scope GlobalScope(bool createIfNotExist = true)
         {
-            var scope = GetOrCreateScope(GlobalScopeKey);
+            if (!TryGetScope(GlobalScopeKey, out var scope))
+            {
+                if (createIfNotExist)
+                    scope = CreateScope(GlobalScopeKey);
+                else
+                    return null;
+            }
             if (!_activeComponents.TryGetValue(scope, out _))
             {
                 var globalScopeObject = new GameObject();
@@ -26,9 +32,15 @@ namespace Okancandev.Scopy
             return scope;
         }
         
-        public Scope SceneScope(Scene scene)
+        public Scope SceneScope(Scene scene, bool createIfNotExist = true)
         {
-            var scope = GetOrCreateScope(scene);
+            if (!TryGetScope(scene, out var scope))
+            {
+                if (createIfNotExist)
+                    scope = CreateScope(scene);
+                else
+                    return null;
+            }
             if (!_activeComponents.TryGetValue(scope, out _))
             {
                 var sceneScopeObject = new GameObject();
@@ -39,9 +51,15 @@ namespace Okancandev.Scopy
             return scope;
         }
         
-        public Scope GameObjectScope(GameObject gameObject)
+        public Scope GameObjectScope(GameObject gameObject, bool createIfNotExist = true)
         {
-            var scope = GetOrCreateScope(gameObject);
+            if (!TryGetScope(gameObject, out var scope))
+            {
+                if (createIfNotExist)
+                    scope = CreateScope(gameObject);
+                else
+                    return null;
+            }
             if (!_activeComponents.TryGetValue(scope, out _))
             {
                 gameObject.AddComponent<AutoGameObjectScopeTracker>();

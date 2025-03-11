@@ -5,14 +5,14 @@ namespace Okancandev.Scopy
 {
     public static class ScopySceneExtensions
     {
-        public static Scope Scope(this Scene scene)
+        public static Scope Scope(this Scene scene, bool createIfNotExist = true)
         {
-            return Scopy.SceneScope(scene);
+            return Scopy.SceneScope(scene, createIfNotExist);
         }
 
-        public static Scope GlobalScope(this Scene scene)
+        public static Scope GlobalScope(this Scene scene, bool createIfNotExist = true)
         {
-            return Scopy.GlobalScope();
+            return Scopy.GlobalScope(createIfNotExist);
         }
         
         public static HierarchicScope HierarchicScope(this Scene scene)
@@ -23,19 +23,19 @@ namespace Okancandev.Scopy
 
     public static class ScopyGameObjectExtensions
     {
-        public static Scope Scope(this GameObject gameObject)
+        public static Scope Scope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.GameObjectScope(gameObject);
+            return Scopy.GameObjectScope(gameObject, createIfNotExist);
         }
         
-        public static Scope SceneScope(this GameObject gameObject)
+        public static Scope SceneScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.SceneScope(gameObject.scene);
+            return Scopy.SceneScope(gameObject.scene, createIfNotExist);
         }
 
-        public static Scope GlobalScope(this GameObject gameObject)
+        public static Scope GlobalScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.GlobalScope();
+            return Scopy.GlobalScope(createIfNotExist);
         }
         
         public static HierarchicScope HierarchicScope(this GameObject gameObject)

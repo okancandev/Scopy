@@ -1,7 +1,7 @@
 {
     "name": "dev.okancan.scopy",
     "displayName": "Scopy",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "unity": "2022.3",
     "description": "Simple service provider solution for unity3d.",
     "keywords": [
