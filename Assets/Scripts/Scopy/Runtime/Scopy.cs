@@ -59,4 +59,9 @@ namespace Okancandev.Scopy
 public interface IScopyEditorCustomGUI
 {
     void OnScopyEditorGUI();
+
+    string OnScopyEditorExtraField()
+    {
+        return ToString();
+    }
 }
