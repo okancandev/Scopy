@@ -51,6 +51,11 @@ namespace Okancandev.Scopy
             return scope;
         }
         
+        public Scope ActiveSceneScope(bool createIfNotExist = true)
+        {
+            return SceneScope(SceneManager.GetActiveScene(), createIfNotExist);
+        }
+        
         public Scope GameObjectScope(GameObject gameObject, bool createIfNotExist = true)
         {
             if (!TryGetScope(gameObject, out var scope))

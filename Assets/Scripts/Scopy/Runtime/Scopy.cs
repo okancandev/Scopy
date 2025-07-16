@@ -27,6 +27,11 @@ namespace Okancandev.Scopy
             return DefaultInstance.SceneScope(scene, createIfNotExist);
         }
         
+        public static Scope ActiveSceneScope(bool createIfNotExist = true)
+        {
+            return DefaultInstance.ActiveSceneScope(createIfNotExist);
+        }
+        
         public static Scope GameObjectScope(GameObject gameObject, bool createIfNotExist = true)
         {
             return DefaultInstance.GameObjectScope(gameObject, createIfNotExist);

@@ -5,6 +5,11 @@ namespace Okancandev.Scopy
 {
     public static class ScopySceneExtensions
     {
+        public static ScopyInstance ScopyInstance(this Scene scene)
+        {
+            return Scopy.DefaultInstance;
+        }
+        
         public static Scope Scope(this Scene scene, bool createIfNotExist = true)
         {
             return Scopy.SceneScope(scene, createIfNotExist);
@@ -23,6 +28,11 @@ namespace Okancandev.Scopy
 
     public static class ScopyGameObjectExtensions
     {
+        public static ScopyInstance ScopyInstance(this GameObject gameObject)
+        {
+            return Scopy.DefaultInstance;
+        }
+        
         public static Scope Scope(this GameObject gameObject, bool createIfNotExist = true)
         {
             return Scopy.GameObjectScope(gameObject, createIfNotExist);
@@ -31,6 +41,11 @@ namespace Okancandev.Scopy
         public static Scope SceneScope(this GameObject gameObject, bool createIfNotExist = true)
         {
             return Scopy.SceneScope(gameObject.scene, createIfNotExist);
+        }
+        
+        public static Scope ActiveSceneScope(this GameObject gameObject, bool createIfNotExist = true)
+        {
+            return Scopy.ActiveSceneScope(createIfNotExist);
         }
 
         public static Scope GlobalScope(this GameObject gameObject, bool createIfNotExist = true)
