@@ -50,37 +50,37 @@ namespace Okancandev.Scopy.Editor
             {
                 new MultiColumnHeaderState.Column
                 {
-                    headerContent = new GUIContent("Type"),
-                    width = 250,
-                    minWidth = 100,
+                    headerContent = new GUIContent("Registered Type"),
+                    width = 200,
+                    minWidth = 200,
                     autoResize = true
                 },
                 new MultiColumnHeaderState.Column
                 {
                     headerContent = new GUIContent("Service"),
-                    width = 250,
-                    minWidth = 100,
+                    width = 200,
+                    minWidth = 200,
                     autoResize = true
                 },
                 new MultiColumnHeaderState.Column
                 {
                     headerContent = new GUIContent("Id"),
-                    width = 50,
-                    minWidth = 10,
+                    width = 25,
+                    minWidth = 25,
                     autoResize = true
                 },
                 new MultiColumnHeaderState.Column
                 {
                     headerContent = new GUIContent("Tag"),
-                    width = 250,
-                    minWidth = 100,
+                    width = 200,
+                    minWidth = 200,
                     autoResize = true
                 },
                 new MultiColumnHeaderState.Column
                 {
                     headerContent = new GUIContent("Extra"),
                     width = 250,
-                    minWidth = 100,
+                    minWidth = 50,
                     autoResize = true
                 }
             };

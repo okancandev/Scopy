@@ -93,7 +93,7 @@ namespace Okancandev.Scopy.Editor
     
     sealed class ScopeCustomTreeViewItem : TreeViewItem
     {
-        public object Owner;
+        public readonly object Owner;
         
         public ScopeCustomTreeViewItem(int id, object owner)
         {
