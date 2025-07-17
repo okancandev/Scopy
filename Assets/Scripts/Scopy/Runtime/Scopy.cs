@@ -68,17 +68,17 @@ namespace Okancandev.Scopy
         {
             if (owner is GameObject)
             {
-                throw new Exception("GameObjects can not be used as custom scopes key.");
+                throw new Exception("GameObjects can not be used as custom scope key.");
             }
 
             if (owner is Scene)
             {
-                throw new Exception("Scenes can not be used as custom scopes key.");
+                throw new Exception("Scenes can not be used as custom scope key.");
             }
             
             if (owner == DefaultInstance)
             {
-                throw new Exception("Global Scope key can not be used as custom scopes key.");
+                throw new Exception("Global Scope key can not be used as custom scope key.");
             }
         }
         
@@ -113,19 +113,19 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(service.GetType()), service, scope);
         }
         
+        public static void AddTagged(object service, object tag, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(service.GetType(), tag), service, scope);
+        }
+        
         public static void AddWithId(object service, long id, Scope scope = default)
         {
             Add(new ServiceIdentifier(service.GetType(), id), service, scope);
         }
         
-        public static void AddTagged(object service, object tag, Scope scope = default)
+        public static void AddTaggedWithId(object service, object tag, long id, Scope scope = default)
         {
-            Add(new ServiceIdentifier(service.GetType(), tag), service, scope);
-        }
-
-        public static void AddTaggedWithId(object service, long id, object tag, Scope scope = default)
-        {
-            Add(new ServiceIdentifier(service.GetType(), id, tag), service, scope);
+            Add(new ServiceIdentifier(service.GetType(), tag, id), service, scope);
         }
         
         public static bool Remove(ServiceIdentifier identifier, Scope scope = default)
@@ -139,19 +139,19 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(service.GetType()), scope);
         }
         
+        public static void RemoveTagged(object service, object tag, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(service.GetType(), tag), scope);
+        }
+        
         public static void RemoveWithId(object service, long id, Scope scope = default)
         {
             Remove(new ServiceIdentifier(service.GetType(), id), scope);
         }
         
-        public static void RemoveTagged(object service, object tag, Scope scope = default)
+        public static void RemoveTaggedWithId(object service, object tag, long id, Scope scope = default)
         {
-            Remove(new ServiceIdentifier(service.GetType(), tag), scope);
-        }
-
-        public static void RemoveTaggedWithId(object service, long id, object tag, Scope scope = default)
-        {
-            Remove(new ServiceIdentifier(service.GetType(), id, tag), scope);
+            Remove(new ServiceIdentifier(service.GetType(), tag, id), scope);
         }
         
         public static object Get(ServiceIdentifier identifier, Scope scope = default)
@@ -178,19 +178,19 @@ namespace Okancandev.Scopy
             return Get(new ServiceIdentifier(type), scope);
         }
         
-        public static object GetWithId(Type type ,long id, Scope scope = default)
-        {
-            return Get(new ServiceIdentifier(type, id), scope);
-        }
-        
         public static object GetTagged(Type type, object tag, Scope scope = default)
         {
             return Get(new ServiceIdentifier(type, tag), scope);
         }
         
-        public static object GetTaggedWithId(Type type, long id, object tag, Scope scope = default)
+        public static object GetWithId(Type type ,long id, Scope scope = default)
         {
-            return Get(new ServiceIdentifier(type, id, tag), scope);
+            return Get(new ServiceIdentifier(type, id), scope);
+        }
+        
+        public static object GetTaggedWithId(Type type, object tag, long id, Scope scope = default)
+        {
+            return Get(new ServiceIdentifier(type, tag, id), scope);
         }
         
         public static T GetSingle<T>(Scope scope = default)
@@ -198,19 +198,19 @@ namespace Okancandev.Scopy
             return (T)Get(new ServiceIdentifier(typeof(T)), scope);
         }
         
-        public static T GetWithId<T>(long id, Scope scope = default)
-        {
-            return (T)Get(new ServiceIdentifier(typeof(T), id), scope);
-        }
-        
         public static T GetTagged<T>(object tag, Scope scope = default)
         {
             return (T)Get(new ServiceIdentifier(typeof(T), tag), scope);
         }
         
-        public static T GetTaggedWithId<T>(long id, object tag, Scope scope = default)
+        public static T GetWithId<T>(long id, Scope scope = default)
         {
-            return (T)Get(new ServiceIdentifier(typeof(T), id, tag), scope);
+            return (T)Get(new ServiceIdentifier(typeof(T), id), scope);
+        }
+        
+        public static T GetTaggedWithId<T>(object tag, long id , Scope scope = default)
+        {
+            return (T)Get(new ServiceIdentifier(typeof(T), tag, id), scope);
         }
         
         public static bool TryGetSingle(Type serviceType, out object service, Scope scope = default)
@@ -218,31 +218,24 @@ namespace Okancandev.Scopy
             return TryGet(new ServiceIdentifier(serviceType), out service, scope);
         }
         
-        public static bool TryGetWithId(Type serviceType, long id, out object service, Scope scope = default)
-        {
-            return TryGet(new ServiceIdentifier(serviceType, id), out service, scope);
-        }
-        
         public static bool TryGetTagged(Type serviceType, object tag, out object service, Scope scope = default)
         {
             return TryGet(new ServiceIdentifier(serviceType, tag), out service, scope);
         }
         
-        public static bool TryGetTaggedWithId(Type serviceType, long id, object tag, out object service, Scope scope = default)
+        public static bool TryGetWithId(Type serviceType, long id, out object service, Scope scope = default)
         {
-            return TryGet(new ServiceIdentifier(serviceType, id, tag), out service, scope);
+            return TryGet(new ServiceIdentifier(serviceType, id), out service, scope);
+        }
+        
+        public static bool TryGetTaggedWithId(Type serviceType, object tag, long id, out object service, Scope scope = default)
+        {
+            return TryGet(new ServiceIdentifier(serviceType, tag, id), out service, scope);
         }
 
         public static bool TryGetSingle<T>(out T service, Scope scope = default)
         {
             bool result = TryGet(new ServiceIdentifier(typeof(T)), out var value, scope);
-            service = (T)value;
-            return result;
-        }
-        
-        public static bool TryGetWithId<T>(long id, out object service, Scope scope = default) 
-        {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), id), out var value, scope);
             service = (T)value;
             return result;
         }
@@ -254,9 +247,16 @@ namespace Okancandev.Scopy
             return result;
         }
         
-        public static bool TryGetTaggedWithId<T>(long id, object tag, out object service, Scope scope = default)
+        public static bool TryGetWithId<T>(long id, out object service, Scope scope = default) 
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), id, tag), out var value, scope);
+            bool result = TryGet(new ServiceIdentifier(typeof(T), id), out var value, scope);
+            service = (T)value;
+            return result;
+        }
+        
+        public static bool TryGetTaggedWithId<T>(object tag, long id, out object service, Scope scope = default)
+        {
+            bool result = TryGet(new ServiceIdentifier(typeof(T), tag, id), out var value, scope);
             service = (T)value;
             return result;
         }
@@ -268,13 +268,6 @@ namespace Okancandev.Scopy
                 : defaultValue;
         }
         
-        public static object GetWithIdOrDefault(Type type, long id, object defaultValue = default, Scope scope = default)
-        {
-            return TryGetWithId(type, id, out object value, scope) 
-                ? value 
-                : defaultValue;
-        }
-        
         public static object GetTaggedOrDefault(Type type, object tag, object defaultValue = default, Scope scope = default)
         {
             return TryGetTagged(type, tag, out object value, scope) 
@@ -282,9 +275,16 @@ namespace Okancandev.Scopy
                 : defaultValue;
         }
         
-        public static object GetTaggedWithIdOrDefault(Type type, long id, object tag, object defaultValue = default, Scope scope = default)
+        public static object GetWithIdOrDefault(Type type, long id, object defaultValue = default, Scope scope = default)
         {
-            return TryGetTaggedWithId(type, id, tag, out object value, scope) 
+            return TryGetWithId(type, id, out object value, scope) 
+                ? value 
+                : defaultValue;
+        }
+        
+        public static object GetTaggedWithIdOrDefault(Type type, object tag, long id, object defaultValue = default, Scope scope = default)
+        {
+            return TryGetTaggedWithId(type, tag, id, out object value, scope) 
                 ? value 
                 : defaultValue;
         }
@@ -296,13 +296,6 @@ namespace Okancandev.Scopy
                 : (T)defaultValue;
         }
         
-        public static T GetWithIdOrDefault<T>(long id, object defaultValue = default, Scope scope = default)
-        {
-            return TryGetWithId(typeof(T), id, out object value, scope) 
-                ? (T)value 
-                : (T)defaultValue;
-        }
-        
         public static T GetTaggedOrDefault<T>(object tag, object defaultValue = default, Scope scope = default)
         {
             return TryGetTagged(typeof(T), tag, out object value, scope) 
@@ -310,9 +303,16 @@ namespace Okancandev.Scopy
                 : (T)defaultValue;
         }
         
-        public static T GetTaggedWithIdOrDefault<T>(long id, object tag, object defaultValue = default, Scope scope = default)
+        public static T GetWithIdOrDefault<T>(long id, object defaultValue = default, Scope scope = default)
         {
-            return TryGetTaggedWithId(typeof(T), id, tag, out object value, scope) 
+            return TryGetWithId(typeof(T), id, out object value, scope) 
+                ? (T)value 
+                : (T)defaultValue;
+        }
+        
+        public static T GetTaggedWithIdOrDefault<T>(object tag, long id, object defaultValue = default, Scope scope = default)
+        {
+            return TryGetTaggedWithId(typeof(T), tag, id, out object value, scope) 
                 ? (T)value 
                 : (T)defaultValue;
         }

@@ -20,13 +20,13 @@ namespace Okancandev.Scopy
             }
             foreach (var customRegister in StringTaggedMultipleServices)
             {
-                var identifier = new ServiceIdentifier(customRegister.Service.GetType(), customRegister.Id, customRegister.Tag);
+                var identifier = new ServiceIdentifier(customRegister.Service.GetType(), customRegister.Tag, customRegister.Id);
                 scope.Add(identifier, customRegister.Service);
             }
             
             foreach (var customRegister in UnityObjectTaggedMultipleServices)
             {
-                var identifier = new ServiceIdentifier(customRegister.Service.GetType(), customRegister.Id, customRegister.Tag);
+                var identifier = new ServiceIdentifier(customRegister.Service.GetType(), customRegister.Tag, customRegister.Id);
                 scope.Add(identifier, customRegister.Service);
             }
         }

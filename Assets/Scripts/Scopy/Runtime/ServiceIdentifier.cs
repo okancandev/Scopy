@@ -3,35 +3,35 @@
 public struct ServiceIdentifier : IEquatable<ServiceIdentifier>
 {
     public Type Type;
-    public long Id;
     public object Tag;
+    public long Id;
 
     public ServiceIdentifier(Type type)
     {
         Type = type;
-        Id = 0;
         Tag = null;
+        Id = 0;
     }
     
     public ServiceIdentifier(Type type, long id)
     {
         Type = type;
-        Id = id;
         Tag = null;
+        Id = id;
     }
     
     public ServiceIdentifier(Type type, object tag)
     {
         Type = type;
-        Id = 0;
         Tag = tag;
+        Id = 0;
     }
     
-    public ServiceIdentifier(Type type, long id, object tag)
+    public ServiceIdentifier(Type type, object tag, long id)
     {
         Type = type;
-        Id = id;
         Tag = tag;
+        Id = id;
     }
     
     public override string ToString()
@@ -51,7 +51,7 @@ public struct ServiceIdentifier : IEquatable<ServiceIdentifier>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(Type, Id, Tag);
+        return HashCode.Combine(Type, Tag, Id);
     }
 
     public static bool operator ==(ServiceIdentifier value1, ServiceIdentifier value2) => value1.Equals(value2);

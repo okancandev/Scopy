@@ -18,19 +18,19 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(service.GetType()), service);
         }
         
-        public void AddWithId(object service, long id)
-        {
-            Add(new ServiceIdentifier(service.GetType(), id), service);
-        }
-        
         public void AddTagged(object service, object tag)
         {
             Add(new ServiceIdentifier(service.GetType(), tag), service);
         }
-
-        public void AddTaggedWithId(object service, long id, object tag)
+        
+        public void AddWithId(object service, long id)
         {
-            Add(new ServiceIdentifier(service.GetType(), id, tag), service);
+            Add(new ServiceIdentifier(service.GetType(), id), service);
+        }
+
+        public void AddTaggedWithId(object service, object tag, long id)
+        {
+            Add(new ServiceIdentifier(service.GetType(), tag, id), service);
         }
         
         public bool Remove(ServiceIdentifier identifier) 
@@ -43,19 +43,19 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(service.GetType()));
         }
         
-        public void RemoveWithId(object service, long id)
-        {
-            Remove(new ServiceIdentifier(service.GetType(), id));
-        }
-        
         public void RemoveTagged(object service, object tag)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag));
         }
-
-        public void RemoveTaggedWithId(object service, long id, object tag)
+        
+        public void RemoveWithId(object service, long id)
         {
-            Remove(new ServiceIdentifier(service.GetType(), id, tag));
+            Remove(new ServiceIdentifier(service.GetType(), id));
+        }
+
+        public void RemoveTaggedWithId(object service, object tag, long id)
+        {
+            Remove(new ServiceIdentifier(service.GetType(), tag, id));
         }
         
         public object Get(ServiceIdentifier identifier) 
@@ -80,19 +80,19 @@ namespace Okancandev.Scopy
             return Get(new ServiceIdentifier(type));
         }
         
-        public object GetWithId(Type type ,long id)
-        {
-            return Get(new ServiceIdentifier(type, id));
-        }
-        
         public object GetTagged(Type type, object tag)
         {
             return Get(new ServiceIdentifier(type, tag));
         }
         
-        public object GetTaggedWithId(Type type, long id, object tag)
+        public object GetWithId(Type type, long id)
         {
-            return Get(new ServiceIdentifier(type, id, tag));
+            return Get(new ServiceIdentifier(type, id));
+        }
+        
+        public object GetTaggedWithId(Type type, object tag, long id)
+        {
+            return Get(new ServiceIdentifier(type, tag, id));
         }
         
         public T GetSingle<T>()
@@ -100,19 +100,19 @@ namespace Okancandev.Scopy
             return (T)Get(new ServiceIdentifier(typeof(T)));
         }
         
-        public T GetWithId<T>(long id)
-        {
-            return (T)Get(new ServiceIdentifier(typeof(T), id));
-        }
-        
         public T GetTagged<T>(object tag)
         {
             return (T)Get(new ServiceIdentifier(typeof(T), tag));
         }
         
-        public T GetTaggedWithId<T>(long id, object tag)
+        public T GetWithId<T>(long id)
         {
-            return (T)Get(new ServiceIdentifier(typeof(T), id, tag));
+            return (T)Get(new ServiceIdentifier(typeof(T), id));
+        }
+        
+        public T GetTaggedWithId<T>(object tag, long id)
+        {
+            return (T)Get(new ServiceIdentifier(typeof(T), tag, id));
         }
         
         public bool TryGetSingle(Type serviceType, out object service) 
@@ -120,31 +120,24 @@ namespace Okancandev.Scopy
             return TryGet(new ServiceIdentifier(serviceType), out service);
         }
         
-        public bool TryGetWithId(Type serviceType, long id, out object service) 
-        {
-            return TryGet(new ServiceIdentifier(serviceType, id), out service);
-        }
-        
         public bool TryGetTagged(Type serviceType, object tag, out object service) 
         {
             return TryGet(new ServiceIdentifier(serviceType, tag), out service);
         }
         
-        public bool TryGetTaggedWithId(Type serviceType, long id, object tag, out object service) 
+        public bool TryGetWithId(Type serviceType, long id, out object service) 
         {
-            return TryGet(new ServiceIdentifier(serviceType, id, tag), out service);
+            return TryGet(new ServiceIdentifier(serviceType, id), out service);
+        }
+        
+        public bool TryGetTaggedWithId(Type serviceType, object tag, long id, out object service) 
+        {
+            return TryGet(new ServiceIdentifier(serviceType, tag, id), out service);
         }
 
         public bool TryGetSingle<T>(out T service)
         {
             bool result = TryGet(new ServiceIdentifier(typeof(T)), out var value);
-            service = (T)value;
-            return result;
-        }
-        
-        public bool TryGetWithId<T>(long id, out object service) 
-        {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), id), out var value);
             service = (T)value;
             return result;
         }
@@ -156,9 +149,16 @@ namespace Okancandev.Scopy
             return result;
         }
         
-        public bool TryGetTaggedWithId<T>(long id, object tag, out object service) 
+        public bool TryGetWithId<T>(long id, out object service) 
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), id, tag), out var value);
+            bool result = TryGet(new ServiceIdentifier(typeof(T), id), out var value);
+            service = (T)value;
+            return result;
+        }
+        
+        public bool TryGetTaggedWithId<T>(object tag, long id , out object service) 
+        {
+            bool result = TryGet(new ServiceIdentifier(typeof(T), tag, id), out var value);
             service = (T)value;
             return result;
         }
@@ -170,13 +170,6 @@ namespace Okancandev.Scopy
                 : defaultValue;
         }
         
-        public object GetWithIdOrDefault(Type type, long id, object defaultValue = default)
-        {
-            return TryGetWithId(type, id, out object value) 
-                ? value 
-                : defaultValue;
-        }
-        
         public object GetTaggedOrDefault(Type type, object tag, object defaultValue = default)
         {
             return TryGetTagged(type, tag, out object value) 
@@ -184,9 +177,16 @@ namespace Okancandev.Scopy
                 : defaultValue;
         }
         
-        public object GetTaggedWithIdOrDefault(Type type, long id, object tag, object defaultValue = default)
+        public object GetWithIdOrDefault(Type type, long id, object defaultValue = default)
         {
-            return TryGetTaggedWithId(type, id, tag, out object value) 
+            return TryGetWithId(type, id, out object value) 
+                ? value 
+                : defaultValue;
+        }
+        
+        public object GetTaggedWithIdOrDefault(Type type, object tag, long id , object defaultValue = default)
+        {
+            return TryGetTaggedWithId(type, tag, id, out object value) 
                 ? value 
                 : defaultValue;
         }
@@ -198,13 +198,6 @@ namespace Okancandev.Scopy
                 : (T)defaultValue;
         }
         
-        public T GetWithIdOrDefault<T>(long id, object defaultValue = default)
-        {
-            return TryGetWithId(typeof(T), id, out object value) 
-                ? (T)value 
-                : (T)defaultValue;
-        }
-        
         public T GetTaggedOrDefault<T>(object tag, object defaultValue = default)
         {
             return TryGetTagged(typeof(T), tag, out object value) 
@@ -212,9 +205,16 @@ namespace Okancandev.Scopy
                 : (T)defaultValue;
         }
         
-        public T GetTaggedWithIdOrDefault<T>(long id, object tag, object defaultValue = default)
+        public T GetWithIdOrDefault<T>(long id, object defaultValue = default)
         {
-            return TryGetTaggedWithId(typeof(T), id, tag, out object value) 
+            return TryGetWithId(typeof(T), id, out object value) 
+                ? (T)value 
+                : (T)defaultValue;
+        }
+        
+        public T GetTaggedWithIdOrDefault<T>(object tag, long id , object defaultValue = default)
+        {
+            return TryGetTaggedWithId(typeof(T), tag, id, out object value) 
                 ? (T)value 
                 : (T)defaultValue;
         }
