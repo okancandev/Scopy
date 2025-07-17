@@ -18,6 +18,26 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(service.GetType()), service);
         }
         
+        public void AddSingle(Type type, object service)
+        {
+            Add(new ServiceIdentifier(type), service);
+        }
+        
+        public void AddSingle<T>(T service)
+        {
+            Add(new ServiceIdentifier(typeof(T)), service);
+        }
+        
+        public void AddTagged(Type type, object service, object tag)
+        {
+            Add(new ServiceIdentifier(type, tag), service);
+        }
+        
+        public void AddTagged<T>(T service, object tag)
+        {
+            Add(new ServiceIdentifier(typeof(T), tag), service);
+        }
+        
         public void AddTagged(object service, object tag)
         {
             Add(new ServiceIdentifier(service.GetType(), tag), service);
@@ -27,10 +47,30 @@ namespace Okancandev.Scopy
         {
             Add(new ServiceIdentifier(service.GetType(), id), service);
         }
+        
+        public void AddWithId(Type type, object service, long id)
+        {
+            Add(new ServiceIdentifier(type, id), service);
+        }
+        
+        public void AddWithId<T>(T service, long id)
+        {
+            Add(new ServiceIdentifier(typeof(T), id), service);
+        }
 
         public void AddTaggedWithId(object service, object tag, long id)
         {
             Add(new ServiceIdentifier(service.GetType(), tag, id), service);
+        }
+        
+        public void AddTaggedWithId(Type type, object service, object tag, long id)
+        {
+            Add(new ServiceIdentifier(type, tag, id), service);
+        }
+        
+        public void AddTaggedWithId<T>(T service, object tag, long id)
+        {
+            Add(new ServiceIdentifier(typeof(T), tag, id), service);
         }
         
         public bool Remove(ServiceIdentifier identifier) 
@@ -43,19 +83,59 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(service.GetType()));
         }
         
+        public void RemoveSingle(Type type)
+        {
+            Remove(new ServiceIdentifier(type));
+        }
+        
+        public void RemoveSingle<T>()
+        {
+            Remove(new ServiceIdentifier(typeof(T)));
+        }
+        
         public void RemoveTagged(object service, object tag)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag));
+        }
+        
+        public void RemoveTagged(Type type, object tag)
+        {
+            Remove(new ServiceIdentifier(type, tag));
+        }
+        
+        public void RemoveTagged<T>(object tag)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag));
         }
         
         public void RemoveWithId(object service, long id)
         {
             Remove(new ServiceIdentifier(service.GetType(), id));
         }
+        
+        public void RemoveWithId(Type type, long id)
+        {
+            Remove(new ServiceIdentifier(type, id));
+        }
+        
+        public void RemoveWithId<T>(long id)
+        {
+            Remove(new ServiceIdentifier(typeof(T), id));
+        }
 
         public void RemoveTaggedWithId(object service, object tag, long id)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag, id));
+        }
+        
+        public void RemoveTaggedWithId(Type type, object tag, long id)
+        {
+            Remove(new ServiceIdentifier(type, tag, id));
+        }
+        
+        public void RemoveTaggedWithId<T>(object tag, long id)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag, id));
         }
         
         public object Get(ServiceIdentifier identifier) 

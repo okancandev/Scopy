@@ -108,12 +108,32 @@ namespace Okancandev.Scopy
             scope.Add(identifier, service);
         }
 
-        public static void AddSingle(object service , Scope scope = default)
+        public static void AddSingle(object service, Scope scope = default)
         {
             Add(new ServiceIdentifier(service.GetType()), service, scope);
         }
         
+        public static void AddSingle(Type type, object service, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(type), service, scope);
+        }
+        
+        public static void AddSingle<T>(T service, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(typeof(T)), service, scope);
+        }
+        
         public static void AddTagged(object service, object tag, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(service.GetType(), tag), service, scope);
+        }
+        
+        public static void AddTagged(Type type, object service, object tag, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(type, tag), service, scope);
+        }
+        
+        public static void AddTagged<T>(T service, object tag, Scope scope = default)
         {
             Add(new ServiceIdentifier(service.GetType(), tag), service, scope);
         }
@@ -123,9 +143,29 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(service.GetType(), id), service, scope);
         }
         
+        public static void AddWithId(Type type, object service, long id, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(type, id), service, scope);
+        }
+        
+        public static void AddWithId<T>(T service, long id, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(typeof(T), id), service, scope);
+        }
+        
         public static void AddTaggedWithId(object service, object tag, long id, Scope scope = default)
         {
             Add(new ServiceIdentifier(service.GetType(), tag, id), service, scope);
+        }
+        
+        public static void AddTaggedWithId(Type type, object service, object tag, long id, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(type, tag, id), service, scope);
+        }
+        
+        public static void AddTaggedWithId<T>(T service, object tag, long id, Scope scope = default)
+        {
+            Add(new ServiceIdentifier(typeof(T), tag, id), service, scope);
         }
         
         public static bool Remove(ServiceIdentifier identifier, Scope scope = default)
@@ -139,9 +179,29 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(service.GetType()), scope);
         }
         
+        public static void RemoveSingle(Type type, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(type), scope);
+        }
+        
+        public static void RemoveSingle<T>(T service, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(typeof(T)), scope);
+        }
+        
         public static void RemoveTagged(object service, object tag, Scope scope = default)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag), scope);
+        }
+        
+        public static void RemoveTagged(Type type, object tag, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(type, tag), scope);
+        }
+        
+        public static void RemoveTagged<T>(object tag, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag), scope);
         }
         
         public static void RemoveWithId(object service, long id, Scope scope = default)
@@ -149,9 +209,29 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(service.GetType(), id), scope);
         }
         
+        public static void RemoveWithId(Type type, long id, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(type, id), scope);
+        }
+        
+        public static void RemoveWithId<T>(long id, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(typeof(T), id), scope);
+        }
+        
         public static void RemoveTaggedWithId(object service, object tag, long id, Scope scope = default)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag, id), scope);
+        }
+        
+        public static void RemoveTaggedWithId(Type type, object tag, long id, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(type, tag, id), scope);
+        }
+        
+        public static void RemoveTaggedWithId<T>(object tag, long id, Scope scope = default)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag, id), scope);
         }
         
         public static object Get(ServiceIdentifier identifier, Scope scope = default)
