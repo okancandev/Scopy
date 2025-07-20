@@ -20,7 +20,7 @@ namespace Okancandev.Scopy.Editor
             GUILayout.Label("Runtime Info");
             foreach (var (type, value) in scopeTracker.gameObject.SceneScope().Services)
             {
-                ScopyEditorWindow.DrawServiceField(type, value);
+                ScopyIMGUIDrawer.EditorInstance.DrawServiceField(type, value);
             }
     
             if (GUILayout.Button("Open Editor Window"))
