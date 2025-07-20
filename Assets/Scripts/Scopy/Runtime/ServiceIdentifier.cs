@@ -1,10 +1,10 @@
 ﻿using System;
 
-public struct ServiceIdentifier : IEquatable<ServiceIdentifier>
+public readonly struct ServiceIdentifier : IEquatable<ServiceIdentifier>
 {
-    public Type Type;
-    public object Tag;
-    public long Id;
+    public readonly Type Type;
+    public readonly object Tag;
+    public readonly long Id;
 
     public ServiceIdentifier(Type type)
     {
@@ -36,9 +36,9 @@ public struct ServiceIdentifier : IEquatable<ServiceIdentifier>
     
     public override string ToString()
     {
-        string tag = Tag != null ? $"t:{Tag}" : "";
-        string id = Id > 0 ? $"({Id})" : "";
-        return $"{Type.Name} {tag} {id}";
+        string tag = Tag != null ? $" t:{Tag}" : "";
+        string id = Id > 0 ? $" id:{Id}" : "";
+        return $"{Type.Name}{tag}{id}";
     }
 
     public bool Equals(ServiceIdentifier other)
