@@ -36,7 +36,9 @@ public struct ServiceIdentifier : IEquatable<ServiceIdentifier>
     
     public override string ToString()
     {
-        return $"{Type.Name} ({Tag}) ({Id})";
+        string tag = Tag != null ? $"t:{Tag}" : "";
+        string id = Id > 0 ? $"({Id})" : "";
+        return $"{Type.Name} {tag} {id}";
     }
 
     public bool Equals(ServiceIdentifier other)

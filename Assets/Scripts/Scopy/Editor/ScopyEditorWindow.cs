@@ -78,65 +78,38 @@ namespace Okancandev.Scopy.Editor
                 DrawServiceField(identifier, service, filter);
             }
         }
-
-        //sorry for super ugly method
+        
         public static void DrawServiceField(ServiceIdentifier identifier, object service, string filter = null)
         {
-            if (string.IsNullOrEmpty(filter))
+            string identifierString = identifier.ToString();
+            string name = service.ToString();
+            if (!string.IsNullOrWhiteSpace(filter))
             {
-                if (service is Object unityObject)
+                foreach (var filterWord in filter.Split(' ', StringSplitOptions.RemoveEmptyEntries))
                 {
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.ObjectField(identifier.Type.FullName, unityObject, unityObject.GetType(), false);
-                    if(service is IScopyEditorCustomGUI customGUIService)
-                        customGUIService.OnScopyEditorGUI();
-                    else
-                        EditorGUILayout.LabelField(service.ToString());
-                    EditorGUILayout.EndHorizontal();
+                    if(identifierString.Contains(filterWord, StringComparison.InvariantCultureIgnoreCase))
+                        goto drawField;
+                    
+                    if(name.Contains(filterWord, StringComparison.InvariantCultureIgnoreCase))
+                        goto drawField;
                 }
-                else
-                {
-                    EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField(identifier.Type.FullName);
-                    if(service is IScopyEditorCustomGUI customGUIService)
-                        customGUIService.OnScopyEditorGUI();
-                    else
-                        EditorGUILayout.LabelField(service.ToString());
-                    EditorGUILayout.EndHorizontal();
-                }
+                return;
+            }
+            
+            drawField:
+            EditorGUILayout.BeginHorizontal();
+            if (service is Object unityObject)
+            {
+                EditorGUILayout.ObjectField(identifierString, unityObject, unityObject.GetType(), false);
             }
             else
             {
-                if (service is Object unityObject)
-                {
-                    if (identifier.Type.FullName != null &&
-                        (identifier.Type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase) ||
-                         unityObject.name.Contains(filter, StringComparison.InvariantCultureIgnoreCase)))
-                    {
-                        EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.ObjectField(identifier.Type.FullName, unityObject, unityObject.GetType(), false);
-                        if(service is IScopyEditorCustomGUI customGUIService)
-                            customGUIService.OnScopyEditorGUI();
-                        else
-                            EditorGUILayout.LabelField(service.ToString());
-                        EditorGUILayout.EndHorizontal();
-                    }
-                }
-                else
-                {
-                    if (identifier.Type.FullName != null &&
-                        identifier.Type.FullName.Contains(filter, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        EditorGUILayout.BeginHorizontal();
-                        EditorGUILayout.LabelField(identifier.Type.FullName);
-                        if(service is IScopyEditorCustomGUI customGUIService)
-                            customGUIService.OnScopyEditorGUI();
-                        else
-                            EditorGUILayout.LabelField(service.ToString());
-                        EditorGUILayout.EndHorizontal();
-                    }
-                }
+                EditorGUILayout.LabelField(identifierString);
+                EditorGUILayout.LabelField(name.Substring(0, 20));
             }
+            if(service is IScopyEditorCustomGUI customGUIService)
+                customGUIService.OnScopyEditorGUI();
+            EditorGUILayout.EndHorizontal();
         }
     }
 }
