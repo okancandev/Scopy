@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -102,299 +100,312 @@ namespace Okancandev.Scopy
             return CustomScope(owner, createIfNotExist);
         }
         
-        public static void Add(ServiceIdentifier identifier, object service, Scope scope = default)
+        public static void Add(ServiceIdentifier identifier, object service, Scope scope = null)
         {
             scope ??= GlobalScope();
             scope.Add(identifier, service);
         }
 
-        public static void AddSingle(object service, Scope scope = default)
+        public static void AddSingle(object service, Scope scope = null)
         {
             Add(new ServiceIdentifier(service.GetType()), service, scope);
         }
         
-        public static void AddSingle(Type type, object service, Scope scope = default)
+        public static void AddSingle(Type type, object service, Scope scope = null)
         {
             Add(new ServiceIdentifier(type), service, scope);
         }
         
-        public static void AddSingle<T>(T service, Scope scope = default)
+        public static void AddSingleForType<T>(T service, Scope scope = null)
         {
             Add(new ServiceIdentifier(typeof(T)), service, scope);
         }
         
-        public static void AddTagged(object service, object tag, Scope scope = default)
-        {
-            Add(new ServiceIdentifier(service.GetType(), tag), service, scope);
-        }
-        
-        public static void AddTagged(Type type, object service, object tag, Scope scope = default)
+        public static void AddTagged(Type type, object service, object tag, Scope scope = null)
         {
             Add(new ServiceIdentifier(type, tag), service, scope);
         }
         
-        public static void AddTagged<T>(T service, object tag, Scope scope = default)
+        public static void AddTaggedForType<T>(T service, object tag, Scope scope = null)
+        {
+            Add(new ServiceIdentifier(typeof(T), tag), service, scope);
+        }
+        
+        public static void AddTagged(object service, object tag, Scope scope = null)
         {
             Add(new ServiceIdentifier(service.GetType(), tag), service, scope);
         }
         
-        public static void AddWithId(object service, long id, Scope scope = default)
+        public static void AddWithId(object service, long id, Scope scope = null)
         {
             Add(new ServiceIdentifier(service.GetType(), id), service, scope);
         }
         
-        public static void AddWithId(Type type, object service, long id, Scope scope = default)
+        public static void AddWithId(Type type, object service, long id, Scope scope = null)
         {
             Add(new ServiceIdentifier(type, id), service, scope);
         }
         
-        public static void AddWithId<T>(T service, long id, Scope scope = default)
+        public static void AddWithIdForType<T>(T service, long id, Scope scope = null)
         {
             Add(new ServiceIdentifier(typeof(T), id), service, scope);
         }
-        
-        public static void AddTaggedWithId(object service, object tag, long id, Scope scope = default)
+
+        public static void AddTaggedWithId(object service, object tag, long id, Scope scope = null)
         {
             Add(new ServiceIdentifier(service.GetType(), tag, id), service, scope);
         }
         
-        public static void AddTaggedWithId(Type type, object service, object tag, long id, Scope scope = default)
+        public static void AddTaggedWithId(Type type, object service, object tag, long id, Scope scope = null)
         {
             Add(new ServiceIdentifier(type, tag, id), service, scope);
         }
         
-        public static void AddTaggedWithId<T>(T service, object tag, long id, Scope scope = default)
+        public static void AddTaggedWithIdForType<T>(T service, object tag, long id, Scope scope = null)
         {
             Add(new ServiceIdentifier(typeof(T), tag, id), service, scope);
         }
         
-        public static bool Remove(ServiceIdentifier identifier, Scope scope = default)
+        public static bool Remove(ServiceIdentifier identifier, Scope scope = null) 
         {
             scope ??= GlobalScope();
             return scope.Remove(identifier);
         }
         
-        public static void RemoveSingle(object service, Scope scope = default)
+        public static void RemoveSingle(object service, Scope scope = null)
         {
             Remove(new ServiceIdentifier(service.GetType()), scope);
         }
         
-        public static void RemoveSingle(Type type, Scope scope = default)
+        public static void RemoveSingle(Type type, Scope scope = null)
         {
             Remove(new ServiceIdentifier(type), scope);
         }
         
-        public static void RemoveSingle<T>(T service, Scope scope = default)
+        public static void RemoveSingle<T>(Scope scope = null)
         {
             Remove(new ServiceIdentifier(typeof(T)), scope);
         }
         
-        public static void RemoveTagged(object service, object tag, Scope scope = default)
+        public static void RemoveSingleForType<T>(Scope scope = null)
+        {
+            Remove(new ServiceIdentifier(typeof(T)), scope);
+        }
+        
+        public static void RemoveTagged(object service, object tag, Scope scope = null)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag), scope);
         }
         
-        public static void RemoveTagged(Type type, object tag, Scope scope = default)
+        public static void RemoveTagged(Type type, object tag, Scope scope = null)
         {
             Remove(new ServiceIdentifier(type, tag), scope);
         }
         
-        public static void RemoveTagged<T>(object tag, Scope scope = default)
+        public static void RemoveTagged<T>(object tag, Scope scope = null)
         {
             Remove(new ServiceIdentifier(typeof(T), tag), scope);
         }
         
-        public static void RemoveWithId(object service, long id, Scope scope = default)
+        public static void RemoveTaggedForType<T>(object tag, Scope scope = null)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag), scope);
+        }
+        
+        public static void RemoveWithId(object service, long id, Scope scope = null)
         {
             Remove(new ServiceIdentifier(service.GetType(), id), scope);
         }
         
-        public static void RemoveWithId(Type type, long id, Scope scope = default)
+        public static void RemoveWithId(Type type, long id, Scope scope = null)
         {
             Remove(new ServiceIdentifier(type, id), scope);
         }
         
-        public static void RemoveWithId<T>(long id, Scope scope = default)
+        public static void RemoveWithId<T>(long id, Scope scope = null)
         {
             Remove(new ServiceIdentifier(typeof(T), id), scope);
         }
-        
-        public static void RemoveTaggedWithId(object service, object tag, long id, Scope scope = default)
+
+        public static void RemoveTaggedWithId(object service, object tag, long id, Scope scope = null)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag, id), scope);
         }
         
-        public static void RemoveTaggedWithId(Type type, object tag, long id, Scope scope = default)
+        public static void RemoveTaggedWithId(Type type, object tag, long id, Scope scope = null)
         {
             Remove(new ServiceIdentifier(type, tag, id), scope);
         }
         
-        public static void RemoveTaggedWithId<T>(object tag, long id, Scope scope = default)
+        public static void RemoveTaggedWithId<T>(object tag, long id, Scope scope = null)
         {
             Remove(new ServiceIdentifier(typeof(T), tag, id), scope);
         }
         
-        public static object Get(ServiceIdentifier identifier, Scope scope = default)
+        public static void RemoveTaggedWithIdForType<T>(object tag, Scope scope = null)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag), scope);
+        }
+        
+        public static object Get(ServiceIdentifier identifier, Scope scope = null) 
         {
             scope ??= GlobalScope();
             return scope.Get(identifier);
         }
         
-        public static bool TryGet(ServiceIdentifier identifier, out object service, Scope scope = default)
+        public static bool TryGet(ServiceIdentifier identifier, out object service, Scope scope = null) 
         {
             scope ??= GlobalScope();
             return scope.TryGet(identifier, out service);
         }
         
-        public static object GetOrDefault(ServiceIdentifier identifier, object defaultValue = default, Scope scope = default)
+        public static bool TryGet<T>(ServiceIdentifier identifier, out T service, Scope scope = null) 
+        {
+            scope ??= GlobalScope();
+            return scope.TryGet(identifier, out service);
+        }
+        
+        public static object GetOrDefault(ServiceIdentifier identifier, object defaultValue = null, Scope scope = null) 
         {
             return TryGet(identifier, out object value, scope) 
                 ? value 
                 : defaultValue;
         }
         
-        public static object GetSingle(Type type, Scope scope = default)
+        public static object GetSingle(Type type, Scope scope = null)
         {
             return Get(new ServiceIdentifier(type), scope);
         }
         
-        public static object GetTagged(Type type, object tag, Scope scope = default)
+        public static object GetTagged(Type type, object tag, Scope scope = null)
         {
             return Get(new ServiceIdentifier(type, tag), scope);
         }
         
-        public static object GetWithId(Type type ,long id, Scope scope = default)
+        public static object GetWithId(Type type, long id, Scope scope = null)
         {
             return Get(new ServiceIdentifier(type, id), scope);
         }
         
-        public static object GetTaggedWithId(Type type, object tag, long id, Scope scope = default)
+        public static object GetTaggedWithId(Type type, object tag, long id, Scope scope = null)
         {
             return Get(new ServiceIdentifier(type, tag, id), scope);
         }
         
-        public static T GetSingle<T>(Scope scope = default)
+        public static T GetSingle<T>(Scope scope = null)
         {
             return (T)Get(new ServiceIdentifier(typeof(T)), scope);
         }
         
-        public static T GetTagged<T>(object tag, Scope scope = default)
+        public static T GetTagged<T>(object tag, Scope scope = null)
         {
             return (T)Get(new ServiceIdentifier(typeof(T), tag), scope);
         }
         
-        public static T GetWithId<T>(long id, Scope scope = default)
+        public static T GetWithId<T>(long id, Scope scope = null)
         {
             return (T)Get(new ServiceIdentifier(typeof(T), id), scope);
         }
         
-        public static T GetTaggedWithId<T>(object tag, long id , Scope scope = default)
+        public static T GetTaggedWithId<T>(object tag, long id, Scope scope = null)
         {
             return (T)Get(new ServiceIdentifier(typeof(T), tag, id), scope);
         }
         
-        public static bool TryGetSingle(Type serviceType, out object service, Scope scope = default)
+        public static bool TryGetSingle(Type serviceType, out object service, Scope scope = null) 
         {
             return TryGet(new ServiceIdentifier(serviceType), out service, scope);
         }
         
-        public static bool TryGetTagged(Type serviceType, object tag, out object service, Scope scope = default)
+        public static bool TryGetTagged(Type serviceType, object tag, out object service, Scope scope = null)
         {
             return TryGet(new ServiceIdentifier(serviceType, tag), out service, scope);
         }
         
-        public static bool TryGetWithId(Type serviceType, long id, out object service, Scope scope = default)
+        public static bool TryGetWithId(Type serviceType, long id, out object service, Scope scope = null) 
         {
             return TryGet(new ServiceIdentifier(serviceType, id), out service, scope);
         }
         
-        public static bool TryGetTaggedWithId(Type serviceType, object tag, long id, out object service, Scope scope = default)
+        public static bool TryGetTaggedWithId(Type serviceType, object tag, long id, out object service, Scope scope = null) 
         {
             return TryGet(new ServiceIdentifier(serviceType, tag, id), out service, scope);
         }
 
-        public static bool TryGetSingle<T>(out T service, Scope scope = default)
+        public static bool TryGetSingle<T>(out T service, Scope scope = null)
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T)), out var value, scope);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T)), out service, scope);
         }
         
-        public static bool TryGetTagged<T>(object tag, out object service, Scope scope = default)
+        public static bool TryGetTagged<T>(object tag, out T service, Scope scope = null)
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), tag), out var value, scope);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T), tag), out service, scope);
         }
         
-        public static bool TryGetWithId<T>(long id, out object service, Scope scope = default) 
+        public static bool TryGetWithId<T>(long id, out T service, Scope scope = null) 
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), id), out var value, scope);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T), id), out service, scope);
         }
         
-        public static bool TryGetTaggedWithId<T>(object tag, long id, out object service, Scope scope = default)
+        public static bool TryGetTaggedWithId<T>(object tag, long id, out T service, Scope scope = null) 
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), tag, id), out var value, scope);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T), tag, id), out service, scope);
         }
         
-        public static object GetSingleOrDefault(Type type, object defaultValue = default, Scope scope = default)
+        public static object GetSingleOrDefault(Type type, object defaultValue = null, Scope scope = null)
         {
             return TryGetSingle(type, out object value, scope) 
                 ? value 
                 : defaultValue;
         }
         
-        public static object GetTaggedOrDefault(Type type, object tag, object defaultValue = default, Scope scope = default)
+        public static object GetTaggedOrDefault(Type type, object tag, object defaultValue = null, Scope scope = null)
         {
             return TryGetTagged(type, tag, out object value, scope) 
                 ? value 
                 : defaultValue;
         }
         
-        public static object GetWithIdOrDefault(Type type, long id, object defaultValue = default, Scope scope = default)
+        public static object GetWithIdOrDefault(Type type, long id, object defaultValue = null, Scope scope = null)
         {
             return TryGetWithId(type, id, out object value, scope) 
                 ? value 
                 : defaultValue;
         }
         
-        public static object GetTaggedWithIdOrDefault(Type type, object tag, long id, object defaultValue = default, Scope scope = default)
+        public static object GetTaggedWithIdOrDefault(Type type, object tag, long id , object defaultValue = null, Scope scope = null)
         {
             return TryGetTaggedWithId(type, tag, id, out object value, scope) 
                 ? value 
                 : defaultValue;
         }
         
-        public static T GetSingleOrDefault<T>(object defaultValue = default, Scope scope = default)
+        public static T GetSingleOrDefault<T>(T defaultValue = default, Scope scope = null)
         {
-            return TryGetSingle(typeof(T), out object value, scope) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetSingle(out T value, scope) 
+                ? value 
+                : defaultValue;
         }
         
-        public static T GetTaggedOrDefault<T>(object tag, object defaultValue = default, Scope scope = default)
+        public static T GetTaggedOrDefault<T>(object tag, T defaultValue = default, Scope scope = null)
         {
-            return TryGetTagged(typeof(T), tag, out object value, scope) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetTagged(tag, out T value, scope) 
+                ? value 
+                : defaultValue;
         }
         
-        public static T GetWithIdOrDefault<T>(long id, object defaultValue = default, Scope scope = default)
+        public static T GetWithIdOrDefault<T>(long id, T defaultValue = default, Scope scope = null)
         {
-            return TryGetWithId(typeof(T), id, out object value, scope) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetWithId(id, out T value, scope) 
+                ? value 
+                : defaultValue;
         }
         
-        public static T GetTaggedWithIdOrDefault<T>(object tag, long id, object defaultValue = default, Scope scope = default)
+        public static T GetTaggedWithIdOrDefault<T>(object tag, long id, T defaultValue = default, Scope scope = null)
         {
-            return TryGetTaggedWithId(typeof(T), tag, id, out object value, scope) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetTaggedWithId(tag, id, out T value, scope) 
+                ? value 
+                : defaultValue;
         }
 
         public static void Reset()

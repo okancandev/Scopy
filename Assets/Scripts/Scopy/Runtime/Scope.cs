@@ -23,7 +23,7 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(type), service);
         }
         
-        public void AddSingle<T>(T service)
+        public void AddSingleForType<T>(T service)
         {
             Add(new ServiceIdentifier(typeof(T)), service);
         }
@@ -33,7 +33,7 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(type, tag), service);
         }
         
-        public void AddTagged<T>(T service, object tag)
+        public void AddTaggedForType<T>(T service, object tag)
         {
             Add(new ServiceIdentifier(typeof(T), tag), service);
         }
@@ -53,7 +53,7 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(type, id), service);
         }
         
-        public void AddWithId<T>(T service, long id)
+        public void AddWithIdForType<T>(T service, long id)
         {
             Add(new ServiceIdentifier(typeof(T), id), service);
         }
@@ -68,7 +68,7 @@ namespace Okancandev.Scopy
             Add(new ServiceIdentifier(type, tag, id), service);
         }
         
-        public void AddTaggedWithId<T>(T service, object tag, long id)
+        public void AddTaggedWithIdForType<T>(T service, object tag, long id)
         {
             Add(new ServiceIdentifier(typeof(T), tag, id), service);
         }
@@ -93,6 +93,11 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(typeof(T)));
         }
         
+        public void RemoveSingleForType<T>()
+        {
+            Remove(new ServiceIdentifier(typeof(T)));
+        }
+        
         public void RemoveTagged(object service, object tag)
         {
             Remove(new ServiceIdentifier(service.GetType(), tag));
@@ -104,6 +109,11 @@ namespace Okancandev.Scopy
         }
         
         public void RemoveTagged<T>(object tag)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag));
+        }
+        
+        public void RemoveTaggedForType<T>(object tag)
         {
             Remove(new ServiceIdentifier(typeof(T), tag));
         }
@@ -138,6 +148,11 @@ namespace Okancandev.Scopy
             Remove(new ServiceIdentifier(typeof(T), tag, id));
         }
         
+        public void RemoveTaggedWithIdForType<T>(object tag)
+        {
+            Remove(new ServiceIdentifier(typeof(T), tag));
+        }
+        
         public object Get(ServiceIdentifier identifier) 
         {
             return _services[identifier];
@@ -148,7 +163,14 @@ namespace Okancandev.Scopy
             return _services.TryGetValue(identifier, out service);
         }
         
-        public object GetOrDefault(ServiceIdentifier identifier, object defaultValue = default) 
+        public bool TryGet<T>(ServiceIdentifier identifier, out T service) 
+        {
+            bool result = _services.TryGetValue(identifier, out object value);
+            service = (T)value;
+            return result;
+        }
+        
+        public object GetOrDefault(ServiceIdentifier identifier, object defaultValue = null) 
         {
             return TryGet(identifier, out object value) 
                 ? value 
@@ -217,86 +239,78 @@ namespace Okancandev.Scopy
 
         public bool TryGetSingle<T>(out T service)
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T)), out var value);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T)), out service);
         }
         
-        public bool TryGetTagged<T>(object tag, out object service) 
+        public bool TryGetTagged<T>(object tag, out T service)
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), tag), out var value);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T), tag), out service);
         }
         
-        public bool TryGetWithId<T>(long id, out object service) 
+        public bool TryGetWithId<T>(long id, out T service) 
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), id), out var value);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T), id), out service);
         }
         
-        public bool TryGetTaggedWithId<T>(object tag, long id , out object service) 
+        public bool TryGetTaggedWithId<T>(object tag, long id, out T service) 
         {
-            bool result = TryGet(new ServiceIdentifier(typeof(T), tag, id), out var value);
-            service = (T)value;
-            return result;
+            return TryGet(new ServiceIdentifier(typeof(T), tag, id), out service);
         }
         
-        public object GetSingleOrDefault(Type type, object defaultValue = default)
+        public object GetSingleOrDefault(Type type, object defaultValue = null)
         {
             return TryGetSingle(type, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public object GetTaggedOrDefault(Type type, object tag, object defaultValue = default)
+        public object GetTaggedOrDefault(Type type, object tag, object defaultValue = null)
         {
             return TryGetTagged(type, tag, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public object GetWithIdOrDefault(Type type, long id, object defaultValue = default)
+        public object GetWithIdOrDefault(Type type, long id, object defaultValue = null)
         {
             return TryGetWithId(type, id, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public object GetTaggedWithIdOrDefault(Type type, object tag, long id , object defaultValue = default)
+        public object GetTaggedWithIdOrDefault(Type type, object tag, long id , object defaultValue = null)
         {
             return TryGetTaggedWithId(type, tag, id, out object value) 
                 ? value 
                 : defaultValue;
         }
         
-        public T GetSingleOrDefault<T>(object defaultValue = default)
+        public T GetSingleOrDefault<T>(T defaultValue = default)
         {
-            return TryGetSingle(typeof(T), out object value) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetSingle(out T value) 
+                ? value 
+                : defaultValue;
         }
         
-        public T GetTaggedOrDefault<T>(object tag, object defaultValue = default)
+        public T GetTaggedOrDefault<T>(object tag, T defaultValue = default)
         {
-            return TryGetTagged(typeof(T), tag, out object value) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetTagged(tag, out T value) 
+                ? value 
+                : defaultValue;
         }
         
-        public T GetWithIdOrDefault<T>(long id, object defaultValue = default)
+        public T GetWithIdOrDefault<T>(long id, T defaultValue = default)
         {
-            return TryGetWithId(typeof(T), id, out object value) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetWithId(id, out T value) 
+                ? value 
+                : defaultValue;
         }
         
-        public T GetTaggedWithIdOrDefault<T>(object tag, long id , object defaultValue = default)
+        public T GetTaggedWithIdOrDefault<T>(object tag, long id, T defaultValue = default)
         {
-            return TryGetTaggedWithId(typeof(T), tag, id, out object value) 
-                ? (T)value 
-                : (T)defaultValue;
+            return TryGetTaggedWithId(tag, id, out T value) 
+                ? value 
+                : defaultValue;
         }
     }
 }
