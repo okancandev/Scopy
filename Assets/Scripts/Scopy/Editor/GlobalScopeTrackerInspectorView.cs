@@ -25,7 +25,7 @@ namespace Okancandev.Scopy.Editor
 
             if (GUILayout.Button("Open Editor Window"))
             {
-                ScopyEditorWindow.Open();
+                ScopyServicesWindow.Open();
             }
         }
     }

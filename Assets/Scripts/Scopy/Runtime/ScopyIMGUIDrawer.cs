@@ -121,6 +121,8 @@ namespace Okancandev.Scopy
                 GUILayout.Label(identifierString);
                 GUILayout.Label(TruncateString(name, 36));
             }
+            if (service is IScopyEditorExtraLabel extraLabelService)
+                GUILayout.Label(extraLabelService.OnScopyEditorExtraLabel());
             if (service is IScopyEditorCustomGUI customGUIService)
                 customGUIService.OnScopyEditorGUI();
         }

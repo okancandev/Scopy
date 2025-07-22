@@ -420,3 +420,8 @@ public interface IScopyEditorCustomGUI
 {
     void OnScopyEditorGUI();
 }
+
+public interface IScopyEditorExtraLabel
+{
+    string OnScopyEditorExtraLabel();
+}
