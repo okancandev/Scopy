@@ -9,9 +9,7 @@ namespace Okancandev.Scopy
     {
         public override object GetOwnerObject() => ScopyInstance.GlobalScopeKey;
 
-        public override void DestroySelf()
-        {
-            Destroy(gameObject);
-        }
+        public override void DestroySelf() => Destroy(gameObject);
+        public override void DestroySelfImmediate() => DestroyImmediate(gameObject);
     }
 }

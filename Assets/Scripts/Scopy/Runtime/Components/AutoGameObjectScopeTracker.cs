@@ -9,9 +9,7 @@ namespace Okancandev.Scopy
     {
         public override object GetOwnerObject() => gameObject;
 
-        public override void DestroySelf()
-        {
-            Destroy(this);
-        }
+        public override void DestroySelf() => Destroy(this);
+        public override void DestroySelfImmediate() => DestroyImmediate(this);
     }
 }

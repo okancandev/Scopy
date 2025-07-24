@@ -408,9 +408,9 @@ namespace Okancandev.Scopy
                 : defaultValue;
         }
 
-        public static void Reset()
+        public static void Destroy()
         {
-            DefaultInstance.DestroyComponents();
+            DefaultInstance.Destroy();
             DefaultInstance = null;
         }
     }

@@ -16,6 +16,12 @@ namespace Okancandev.Scopy
 
         public abstract object GetOwnerObject();
         public abstract void DestroySelf();
+        public abstract void DestroySelfImmediate();
+
+        internal void DetachScopyInstance()
+        {
+            ScopyInstance = null;
+        }
         
         private void OnDestroy()
         {

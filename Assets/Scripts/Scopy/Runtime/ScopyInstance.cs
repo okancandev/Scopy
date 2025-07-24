@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Okancandev.Scopy
 {
-    public sealed class ScopyInstance
+    public sealed class ScopyInstance : IDisposable
     {
         private readonly Dictionary<object, Scope> _scopes = new();
         private readonly Dictionary<Scope, ScopeTracker> _activeComponents = new();
@@ -152,12 +153,20 @@ namespace Okancandev.Scopy
             return null;
         }
 
-        public void DestroyComponents()
+        public void Destroy()
         {
             foreach (var scopyComponent in _activeComponents.Values)
             {
-                scopyComponent.DestroySelf();
+                scopyComponent.DetachScopyInstance(); //this ensures collection not modified in foreach
+                scopyComponent.DestroySelfImmediate();
             }
+            _activeComponents.Clear();
+            _scopes.Clear();
+        }
+        
+        public void Dispose()
+        {
+            Destroy();
         }
     }
 }
