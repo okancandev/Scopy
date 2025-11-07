@@ -12,12 +12,12 @@ namespace Okancandev.UScopes
         
         public static Scope Scope(this Scene scene, bool createIfNotExist = true)
         {
-            return UScopes.SceneScope(scene, createIfNotExist);
+            return UScopes.Scene(scene, createIfNotExist);
         }
 
         public static Scope GlobalScope(this Scene scene, bool createIfNotExist = true)
         {
-            return UScopes.GlobalScope(createIfNotExist);
+            return UScopes.Global(createIfNotExist);
         }
         
         public static HierarchicScope HierarchicScope(this Scene scene)
@@ -35,22 +35,22 @@ namespace Okancandev.UScopes
         
         public static Scope Scope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return UScopes.GameObjectScope(gameObject, createIfNotExist);
+            return UScopes.GameObject(gameObject, createIfNotExist);
         }
         
         public static Scope SceneScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return UScopes.SceneScope(gameObject.scene, createIfNotExist);
+            return UScopes.Scene(gameObject.scene, createIfNotExist);
         }
         
         public static Scope ActiveSceneScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return UScopes.ActiveSceneScope(createIfNotExist);
+            return UScopes.ActiveScene(createIfNotExist);
         }
 
         public static Scope GlobalScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return UScopes.GlobalScope(createIfNotExist);
+            return UScopes.Global(createIfNotExist);
         }
         
         public static HierarchicScope HierarchicScope(this GameObject gameObject)

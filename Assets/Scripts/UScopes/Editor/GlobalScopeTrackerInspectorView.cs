@@ -18,7 +18,7 @@ namespace Okancandev.UScopes.Editor
             }
             
             GUILayout.Label("Runtime Info");
-            foreach (var (type, value) in UScopes.GlobalScope().Services)
+            foreach (var (type, value) in UScopes.Global().Services)
             {
                 UScopesIMGUIDrawer.EditorInstance.DrawServiceField(type, value);
             }

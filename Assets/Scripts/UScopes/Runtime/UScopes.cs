@@ -16,27 +16,27 @@ namespace Okancandev.UScopes
             private set => _defaultInstance = value;
         }
 
-        public static Scope GlobalScope(bool createIfNotExist = true)
+        public static Scope Global(bool createIfNotExist = true)
         {
             return DefaultInstance.GlobalScope(createIfNotExist);
         }
         
-        public static Scope SceneScope(Scene scene, bool createIfNotExist = true)
+        public static Scope Scene(Scene scene, bool createIfNotExist = true)
         {
             return DefaultInstance.SceneScope(scene, createIfNotExist);
         }
         
-        public static Scope ActiveSceneScope(bool createIfNotExist = true)
+        public static Scope ActiveScene(bool createIfNotExist = true)
         {
             return DefaultInstance.ActiveSceneScope(createIfNotExist);
         }
         
-        public static Scope GameObjectScope(GameObject gameObject, bool createIfNotExist = true)
+        public static Scope GameObject(GameObject gameObject, bool createIfNotExist = true)
         {
             return DefaultInstance.GameObjectScope(gameObject, createIfNotExist);
         }
         
-        public static Scope CustomScope(object owner, bool createIfNotExist = true)
+        public static Scope Custom(object owner, bool createIfNotExist = true)
         {
 #if UNITY_EDITOR
             ScopeKeyValidation(owner);
@@ -54,7 +54,7 @@ namespace Okancandev.UScopes
             return null;
         }
 
-        public static bool RemoveCustomScope(object owner)
+        public static bool RemoveCustom(object owner)
         {
 #if UNITY_EDITOR
             ScopeKeyValidation(owner);
@@ -80,25 +80,48 @@ namespace Okancandev.UScopes
             }
         }
         
-        public static Scope ScopeOf(object owner, bool createIfNotExist = true)
+        public static Scope Of(object owner, bool createIfNotExist = true)
         {
             if (owner is GameObject gameObject)
             {
-                return GameObjectScope(gameObject, createIfNotExist);
+                return GameObject(gameObject, createIfNotExist);
             }
 
             if (owner is Scene scene)
             {
-                return SceneScope(scene, createIfNotExist);
+                return Scene(scene, createIfNotExist);
             }
             
             if (owner == DefaultInstance)
             {
-                return GlobalScope(createIfNotExist);
+                return Global(createIfNotExist);
             }
             
-            return CustomScope(owner, createIfNotExist);
+            return Custom(owner, createIfNotExist);
         }
+
+        public static void Destroy()
+        {
+            DefaultInstance.Destroy();
+            DefaultInstance = null;
+        }
+    }
+    
+    public static class Static
+    {
+        public static Scope GlobalScope(bool createIfNotExist = true) => UScopes.Global(createIfNotExist);
+
+        public static Scope SceneScope(Scene scene, bool createIfNotExist = true) => UScopes.Scene(scene, createIfNotExist);
+        
+        public static Scope ActiveSceneScope(bool createIfNotExist = true) => UScopes.ActiveScene(createIfNotExist);
+        
+        public static Scope GameObjectScope(GameObject gameObject, bool createIfNotExist = true) => UScopes.GameObject(gameObject, createIfNotExist);
+        
+        public static Scope CustomScope(object owner, bool createIfNotExist = true) => UScopes.Custom(owner, createIfNotExist);
+
+        public static bool RemoveCustomScope(object owner) => UScopes.RemoveCustom(owner);
+        
+        public static Scope ScopeOf(object owner, bool createIfNotExist = true) => UScopes.Of(owner, createIfNotExist);
         
         public static void Add(ServiceIdentifier identifier, object service, Scope scope = null)
         {
@@ -406,12 +429,6 @@ namespace Okancandev.UScopes
             return TryGetTaggedWithId(tag, id, out T value, scope) 
                 ? value 
                 : defaultValue;
-        }
-
-        public static void Destroy()
-        {
-            DefaultInstance.Destroy();
-            DefaultInstance = null;
         }
     }
 }
