@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Okancandev.UScopes.Recipes
 {
-    public abstract class GameObjectService : Service
+    public abstract class GameObjectScopedMonoBehaviour : ScopedMonoBehaviour
     {
         protected override Scope GetScope(bool createIfNotExist = true)
         {

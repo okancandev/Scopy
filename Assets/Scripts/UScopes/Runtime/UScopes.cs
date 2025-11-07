@@ -107,7 +107,7 @@ namespace Okancandev.UScopes
         }
     }
     
-    public static class Static
+    public static class UScopesStatic
     {
         public static Scope GlobalScope(bool createIfNotExist = true) => UScopes.Global(createIfNotExist);
 

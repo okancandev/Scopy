@@ -3,17 +3,14 @@ using UnityEngine;
 
 namespace Okancandev.UScopes.Recipes
 {
-    public abstract class Service : MonoBehaviour
+    public abstract class ScopedMonoBehaviour : MonoBehaviour
     {
         protected virtual void Awake()
         {
             RegisterService();
         }
-    
-        protected virtual Scope GetScope(bool createIfNotExist = true)
-        {
-            return gameObject.GlobalScope(createIfNotExist);
-        }
+
+        protected abstract Scope GetScope(bool createIfNotExist = true);
 
         protected virtual ServiceIdentifier GetServiceIdentifier()
         {
