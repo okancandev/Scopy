@@ -6,12 +6,12 @@ namespace Okancandev.Scopy
 {
     public abstract class ScopeTracker : MonoBehaviour
     {
-        public ScopyInstance ScopyInstance { get; set; }
+        public UScopesInstance UScopesInstance { get; set; }
         
         protected void Awake()
         {
-            ScopyInstance ??= Scopy.DefaultInstance;
-            ScopyInstance.RegisterTrackerComponent(ScopyInstance.GetOrCreateScope(GetOwnerObject()), this);
+            UScopesInstance ??= UScopes.DefaultInstance;
+            UScopesInstance.RegisterTrackerComponent(UScopesInstance.GetOrCreateScope(GetOwnerObject()), this);
         }
 
         public abstract object GetOwnerObject();
@@ -20,14 +20,14 @@ namespace Okancandev.Scopy
 
         internal void DetachScopyInstance()
         {
-            ScopyInstance = null;
+            UScopesInstance = null;
         }
         
         private void OnDestroy()
         {
-            if (ScopyInstance != null)
+            if (UScopesInstance != null)
             {
-                ScopyInstance.RemoveTrackerComponent(this);
+                UScopesInstance.RemoveTrackerComponent(this);
             }
         }
     }

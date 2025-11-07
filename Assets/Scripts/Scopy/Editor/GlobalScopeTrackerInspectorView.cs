@@ -12,20 +12,20 @@ namespace Okancandev.Scopy.Editor
             base.OnInspectorGUI();
             var scopeTracker = (AutoGlobalScopeTracker)target;
 
-            if (scopeTracker.ScopyInstance == null)
+            if (scopeTracker.UScopesInstance == null)
             {
                 return;
             }
             
             GUILayout.Label("Runtime Info");
-            foreach (var (type, value) in Scopy.GlobalScope().Services)
+            foreach (var (type, value) in UScopes.GlobalScope().Services)
             {
-                ScopyIMGUIDrawer.EditorInstance.DrawServiceField(type, value);
+                UScopesIMGUIDrawer.EditorInstance.DrawServiceField(type, value);
             }
 
             if (GUILayout.Button("Open Editor Window"))
             {
-                ScopyServicesWindow.Open();
+                UScopesServicesWindow.Open();
             }
         }
     }

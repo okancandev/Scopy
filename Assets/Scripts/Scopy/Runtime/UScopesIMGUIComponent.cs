@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Okancandev.Scopy
 {
-    public class ScopyIMGUIComponent : MonoBehaviour
+    public class UScopesIMGUIComponent : MonoBehaviour
     {
-        private readonly ScopyIMGUIDrawer _imGUIDrawer = new();
+        private readonly UScopesIMGUIDrawer _imGUIDrawer = new();
 
         private void OnGUI()
         {

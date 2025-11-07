@@ -12,7 +12,7 @@ namespace Okancandev.Scopy.Editor
             base.OnInspectorGUI();
             var scopeTracker = (AutoGameObjectScopeTracker)target;
             
-            if (scopeTracker.ScopyInstance == null)
+            if (scopeTracker.UScopesInstance == null)
             {
                 return;
             }
@@ -20,12 +20,12 @@ namespace Okancandev.Scopy.Editor
             GUILayout.Label("Runtime Info");
             foreach (var (type, value) in scopeTracker.gameObject.Scope().Services)
             {
-                ScopyIMGUIDrawer.EditorInstance.DrawServiceField(type, value);
+                UScopesIMGUIDrawer.EditorInstance.DrawServiceField(type, value);
             }
 
             if (GUILayout.Button("Open Editor Window"))
             {
-                ScopyServicesWindow.Open();
+                UScopesServicesWindow.Open();
             }
         }
     }

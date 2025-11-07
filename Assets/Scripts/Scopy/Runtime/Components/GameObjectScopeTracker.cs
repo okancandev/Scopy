@@ -11,9 +11,9 @@ namespace Okancandev.Scopy
 
         protected new void Awake()
         {
-            ScopyInstance ??= Scopy.DefaultInstance;
-            var scope = ScopyInstance.GetOrCreateScope(GetOwnerObject());
-            ScopyInstance.RegisterTrackerComponent(scope, this);
+            UScopesInstance ??= UScopes.DefaultInstance;
+            var scope = UScopesInstance.GetOrCreateScope(GetOwnerObject());
+            UScopesInstance.RegisterTrackerComponent(scope, this);
             
             foreach (var installer in Installers)
             {

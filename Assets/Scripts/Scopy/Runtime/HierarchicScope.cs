@@ -9,12 +9,12 @@ namespace Okancandev.Scopy
 {
     public struct HierarchicScope
     {
-        private ScopyInstance ScopyInstance { get; set; }
+        private UScopesInstance UScopesInstance { get; set; }
         private object Owner { get; set; }
         
-        public HierarchicScope(object owner, ScopyInstance scopyInstance = null)
+        public HierarchicScope(object owner, UScopesInstance uScopesInstance = null)
         {
-            ScopyInstance = scopyInstance ?? Scopy.DefaultInstance;
+            UScopesInstance = uScopesInstance ?? UScopes.DefaultInstance;
             Owner = owner;
         }
 
@@ -22,17 +22,17 @@ namespace Okancandev.Scopy
         {
             if (Owner is GameObject gameObject)
             {
-                if (ScopyInstance.TryGetScope(gameObject, out Scope gameObjectScope))
+                if (UScopesInstance.TryGetScope(gameObject, out Scope gameObjectScope))
                 {
                     return gameObjectScope;
                 }
                 
-                if (ScopyInstance.TryGetScope(gameObject.scene, out Scope sceneScope))
+                if (UScopesInstance.TryGetScope(gameObject.scene, out Scope sceneScope))
                 {
                     return sceneScope;
                 }
                 
-                if (ScopyInstance.TryGetScope(ScopyInstance.GlobalScopeKey, out Scope globalScope))
+                if (UScopesInstance.TryGetScope(UScopesInstance.GlobalScopeKey, out Scope globalScope))
                 {
                     return globalScope;
                 }
@@ -40,20 +40,20 @@ namespace Okancandev.Scopy
 
             if (Owner is Scene scene)
             {
-                if (ScopyInstance.TryGetScope(scene, out Scope sceneScope))
+                if (UScopesInstance.TryGetScope(scene, out Scope sceneScope))
                 {
                     return sceneScope;
                 }
                 
-                if (ScopyInstance.TryGetScope(ScopyInstance.GlobalScopeKey, out Scope globalScope))
+                if (UScopesInstance.TryGetScope(UScopesInstance.GlobalScopeKey, out Scope globalScope))
                 {
                     return globalScope;
                 }
             }
             
-            if (Owner == ScopyInstance.GlobalScopeKey)
+            if (Owner == UScopesInstance.GlobalScopeKey)
             {
-                if (ScopyInstance.TryGetScope(ScopyInstance.GlobalScopeKey, out Scope globalScope))
+                if (UScopesInstance.TryGetScope(UScopesInstance.GlobalScopeKey, out Scope globalScope))
                 {
                     return globalScope;
                 }
@@ -69,9 +69,9 @@ namespace Okancandev.Scopy
                 return gameObject.scene;
             }
 
-            if (Owner != ScopyInstance.GlobalScopeKey)
+            if (Owner != UScopesInstance.GlobalScopeKey)
             {
-                return ScopyInstance.GlobalScopeKey;
+                return UScopesInstance.GlobalScopeKey;
             }
 
             return null;

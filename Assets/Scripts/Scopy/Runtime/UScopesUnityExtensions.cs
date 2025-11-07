@@ -3,21 +3,21 @@ using UnityEngine.SceneManagement;
 
 namespace Okancandev.Scopy
 {
-    public static class ScopySceneExtensions
+    public static class UScopesSceneExtensions
     {
-        public static ScopyInstance ScopyInstance(this Scene scene)
+        public static UScopesInstance ScopyInstance(this Scene scene)
         {
-            return Scopy.DefaultInstance;
+            return UScopes.DefaultInstance;
         }
         
         public static Scope Scope(this Scene scene, bool createIfNotExist = true)
         {
-            return Scopy.SceneScope(scene, createIfNotExist);
+            return UScopes.SceneScope(scene, createIfNotExist);
         }
 
         public static Scope GlobalScope(this Scene scene, bool createIfNotExist = true)
         {
-            return Scopy.GlobalScope(createIfNotExist);
+            return UScopes.GlobalScope(createIfNotExist);
         }
         
         public static HierarchicScope HierarchicScope(this Scene scene)
@@ -26,31 +26,31 @@ namespace Okancandev.Scopy
         }
     }
 
-    public static class ScopyGameObjectExtensions
+    public static class UScopesGameObjectExtensions
     {
-        public static ScopyInstance ScopyInstance(this GameObject gameObject)
+        public static UScopesInstance ScopyInstance(this GameObject gameObject)
         {
-            return Scopy.DefaultInstance;
+            return UScopes.DefaultInstance;
         }
         
         public static Scope Scope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.GameObjectScope(gameObject, createIfNotExist);
+            return UScopes.GameObjectScope(gameObject, createIfNotExist);
         }
         
         public static Scope SceneScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.SceneScope(gameObject.scene, createIfNotExist);
+            return UScopes.SceneScope(gameObject.scene, createIfNotExist);
         }
         
         public static Scope ActiveSceneScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.ActiveSceneScope(createIfNotExist);
+            return UScopes.ActiveSceneScope(createIfNotExist);
         }
 
         public static Scope GlobalScope(this GameObject gameObject, bool createIfNotExist = true)
         {
-            return Scopy.GlobalScope(createIfNotExist);
+            return UScopes.GlobalScope(createIfNotExist);
         }
         
         public static HierarchicScope HierarchicScope(this GameObject gameObject)

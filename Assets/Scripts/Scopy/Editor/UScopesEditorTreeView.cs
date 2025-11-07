@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 
 namespace Okancandev.Scopy.Editor
 {
-    class ScopyEditorTreeView : TreeView
+    internal class UScopesEditorTreeView : TreeView
     {
-        public ScopyEditorTreeView(TreeViewState state, MultiColumnHeader header)
+        public UScopesEditorTreeView(TreeViewState state, MultiColumnHeader header)
             : base(state, header)
         {
             showAlternatingRowBackgrounds = true;
@@ -21,7 +21,7 @@ namespace Okancandev.Scopy.Editor
             var root = new TreeViewItem { id = 0, depth = -1, displayName = "Root" };
             var allItems = new List<TreeViewItem>();
             int id = 0;
-            foreach (var (owner, scope) in Scopy.DefaultInstance.Scopes)
+            foreach (var (owner, scope) in UScopes.DefaultInstance.Scopes)
             {
                 allItems.Add(new ScopeCustomTreeViewItem(id++, owner));
                 foreach (var (identifier, service) in scope.Services)
@@ -99,7 +99,7 @@ namespace Okancandev.Scopy.Editor
         {
             this.id = id;
             Owner = owner;
-            if (Owner == Scopy.DefaultInstance.GlobalScopeKey)
+            if (Owner == UScopes.DefaultInstance.GlobalScopeKey)
             {
                 displayName = "Global Scope";
                 icon = EditorGUIUtility.FindTexture("d_ToolHandleGlobal@2x");

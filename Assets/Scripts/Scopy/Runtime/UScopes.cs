@@ -6,13 +6,13 @@ using UnityEngine.SceneManagement;
 [assembly:InternalsVisibleTo("Scopy.Editor")]
 namespace Okancandev.Scopy
 {
-    public static class Scopy
+    public static class UScopes
     {
-        internal static ScopyInstance _defaultInstance;
+        internal static UScopesInstance _defaultInstance;
 
-        public static ScopyInstance DefaultInstance
+        public static UScopesInstance DefaultInstance
         {
-            get => _defaultInstance ??= new ScopyInstance();
+            get => _defaultInstance ??= new UScopesInstance();
             private set => _defaultInstance = value;
         }
 

@@ -6,10 +6,10 @@ using Object = UnityEngine.Object;
 
 namespace Okancandev.Scopy
 {
-    public class ScopyIMGUIDrawer
+    public class UScopesIMGUIDrawer
     {
 #if UNITY_EDITOR
-        internal static readonly ScopyIMGUIDrawer EditorInstance = new ScopyIMGUIDrawer();
+        internal static readonly UScopesIMGUIDrawer EditorInstance = new UScopesIMGUIDrawer();
 #endif
 
         private Vector2 _scrollPosition;
@@ -26,7 +26,7 @@ namespace Okancandev.Scopy
 
         public void OnGUI()
         {
-            if (Scopy._defaultInstance == null)
+            if (UScopes._defaultInstance == null)
             {
                 return;
             }
@@ -34,11 +34,11 @@ namespace Okancandev.Scopy
             _filter = DrawSearchBar();
             _scrollPosition = GUILayout.BeginScrollView(_scrollPosition);
 
-            var scopes = Scopy.DefaultInstance.Scopes;
+            var scopes = UScopes.DefaultInstance.Scopes;
 
             foreach (var (owner, scope) in scopes)
             {
-                if (owner == Scopy.DefaultInstance.GlobalScopeKey)
+                if (owner == UScopes.DefaultInstance.GlobalScopeKey)
                 {
                     GUILayout.Label(" Global Scope");
                     DrawServices(scope.Services, _filter);
@@ -65,7 +65,7 @@ namespace Okancandev.Scopy
 
             foreach (var (owner, scope) in scopes)
             {
-                if (owner is not (ScopyInstance or Scene or GameObject))
+                if (owner is not (UScopesInstance or Scene or GameObject))
                 {
                     GUILayout.Label($" {owner} Custom Scope");
                     DrawServices(scope.Services, _filter);

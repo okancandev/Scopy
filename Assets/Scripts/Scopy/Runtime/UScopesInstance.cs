@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 namespace Okancandev.Scopy
 {
-    public sealed class ScopyInstance : IDisposable
+    public sealed class UScopesInstance : IDisposable
     {
         private readonly Dictionary<object, Scope> _scopes = new();
         private readonly Dictionary<Scope, ScopeTracker> _activeComponents = new();

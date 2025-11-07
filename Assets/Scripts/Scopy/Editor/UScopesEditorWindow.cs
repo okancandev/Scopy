@@ -5,17 +5,17 @@ using System.Collections.Generic;
 
 namespace Okancandev.Scopy.Editor
 {
-    public class ScopyEditorWindow : EditorWindow
+    public class UScopesEditorWindow : EditorWindow
     {
         private const string MenuItemName = "Window/Analysis/Scopy Editor";
 
         [MenuItem(MenuItemName, priority = 101)]
         public static void ShowWindow()
         {
-            GetWindow<ScopyEditorWindow>("Scopy Editor");
+            GetWindow<UScopesEditorWindow>("Scopy Editor");
         }
     
-        private ScopyEditorTreeView _scopyEditorTreeView;
+        private UScopesEditorTreeView _uScopesEditorTreeView;
         private TreeViewState _treeViewState;
         private MultiColumnHeaderState _headerState;
     
@@ -27,7 +27,7 @@ namespace Okancandev.Scopy.Editor
                 _treeViewState = new TreeViewState();
     
             var header = CreateHeader();
-            _scopyEditorTreeView = new ScopyEditorTreeView(_treeViewState, header);
+            _uScopesEditorTreeView = new UScopesEditorTreeView(_treeViewState, header);
         }
 
         private void OnDisable()
@@ -37,13 +37,13 @@ namespace Okancandev.Scopy.Editor
 
         private void AutoUpdateTree()
         {
-            _scopyEditorTreeView.Reload();
+            _uScopesEditorTreeView.Reload();
             //Repaint();
         }
     
         void OnGUI()
         {
-            _scopyEditorTreeView.OnGUI(new Rect(0, 0, position.width, position.height));
+            _uScopesEditorTreeView.OnGUI(new Rect(0, 0, position.width, position.height));
         }
         
         MultiColumnHeader CreateHeader()
