@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     public class UScopesIMGUIDrawer
     {

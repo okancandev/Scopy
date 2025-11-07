@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     public sealed class UScopesInstance : IDisposable
     {

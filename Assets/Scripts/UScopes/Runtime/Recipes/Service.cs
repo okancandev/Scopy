@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Okancandev.Scopy.Recipes
+namespace Okancandev.UScopes.Recipes
 {
     public abstract class Service : MonoBehaviour
     {

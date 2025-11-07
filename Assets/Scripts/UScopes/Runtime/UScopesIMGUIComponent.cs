@@ -1,10 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Okancandev.Scopy;
+using Okancandev.UScopes;
 using UnityEngine;
 
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     public class UScopesIMGUIComponent : MonoBehaviour
     {

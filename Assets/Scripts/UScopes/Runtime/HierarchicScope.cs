@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     public struct HierarchicScope
     {

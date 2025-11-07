@@ -1,8 +1,8 @@
-using Okancandev.Scopy;
+using Okancandev.UScopes;
 using UnityEditor;
 using UnityEngine;
 
-namespace Okancandev.Scopy.Editor
+namespace Okancandev.UScopes.Editor
 {
     [CustomEditor(typeof(AutoSceneScopeTracker), true)]
     public class SceneScopeTrackerInspectorView : UnityEditor.Editor

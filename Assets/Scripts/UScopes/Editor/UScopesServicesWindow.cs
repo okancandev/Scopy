@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace Okancandev.Scopy.Editor
+namespace Okancandev.UScopes.Editor
 {
     public sealed class UScopesServicesWindow : EditorWindow
     {

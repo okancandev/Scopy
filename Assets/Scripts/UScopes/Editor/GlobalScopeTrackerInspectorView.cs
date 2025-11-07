@@ -1,8 +1,8 @@
-using Okancandev.Scopy;
+using Okancandev.UScopes;
 using UnityEditor;
 using UnityEngine;
 
-namespace Okancandev.Scopy.Editor
+namespace Okancandev.UScopes.Editor
 {
     [CustomEditor(typeof(AutoGlobalScopeTracker), true)]
     public class GlobalScopeTrackerInspectorView : UnityEditor.Editor

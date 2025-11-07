@@ -3,7 +3,7 @@ using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Okancandev.Scopy.Editor
+namespace Okancandev.UScopes.Editor
 {
     public class UScopesEditorWindow : EditorWindow
     {

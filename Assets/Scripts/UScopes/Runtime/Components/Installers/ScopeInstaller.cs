@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     [AddComponentMenu("")]
     public class ScopeInstaller : MonoBehaviour

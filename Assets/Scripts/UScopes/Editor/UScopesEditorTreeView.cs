@@ -5,7 +5,7 @@ using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Okancandev.Scopy.Editor
+namespace Okancandev.UScopes.Editor
 {
     internal class UScopesEditorTreeView : TreeView
     {

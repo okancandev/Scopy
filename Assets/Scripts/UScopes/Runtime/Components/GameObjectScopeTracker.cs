@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     [DefaultExecutionOrder(-8000)]
     public class GameObjectScopeTracker : AutoGameObjectScopeTracker

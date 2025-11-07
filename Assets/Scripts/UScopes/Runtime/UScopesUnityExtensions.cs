@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     public static class UScopesSceneExtensions
     {

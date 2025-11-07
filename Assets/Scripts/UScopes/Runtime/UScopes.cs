@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [assembly:InternalsVisibleTo("UScopes.Editor")]
-namespace Okancandev.Scopy
+namespace Okancandev.UScopes
 {
     public static class UScopes
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Okancandev.Scopy.Recipes
+namespace Okancandev.UScopes.Recipes
 {
     public abstract class SceneService : Service
     {
