@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-[assembly:InternalsVisibleTo("Scopy.Editor")]
+[assembly:InternalsVisibleTo("UScopes.Editor")]
 namespace Okancandev.Scopy
 {
     public static class UScopes
