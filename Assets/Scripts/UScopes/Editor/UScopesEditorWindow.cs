@@ -7,12 +7,12 @@ namespace Okancandev.UScopes.Editor
 {
     public class UScopesEditorWindow : EditorWindow
     {
-        private const string MenuItemName = "Window/Analysis/Scopy Editor";
+        private const string MenuItemName = "Window/Analysis/UScopes Editor";
 
         [MenuItem(MenuItemName, priority = 101)]
         public static void ShowWindow()
         {
-            GetWindow<UScopesEditorWindow>("Scopy Editor");
+            GetWindow<UScopesEditorWindow>("UScopes Editor");
         }
     
         private UScopesEditorTreeView _uScopesEditorTreeView;

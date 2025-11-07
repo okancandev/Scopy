@@ -121,10 +121,10 @@ namespace Okancandev.UScopes
                 GUILayout.Label(identifierString);
                 GUILayout.Label(TruncateString(name, 36));
             }
-            if (service is IScopyEditorExtraLabel extraLabelService)
-                GUILayout.Label(extraLabelService.OnScopyEditorExtraLabel());
-            if (service is IScopyEditorCustomGUI customGUIService)
-                customGUIService.OnScopyEditorGUI();
+            if (service is IUScopesEditorExtraLabel extraLabelService)
+                GUILayout.Label(extraLabelService.OnUScopesEditorExtraLabel());
+            if (service is IUScopesEditorCustomGUI customGUIService)
+                customGUIService.OnUScopesEditorGUI();
         }
 
         private string TruncateString(string value, int maxLength, string truncationSuffix = "…")

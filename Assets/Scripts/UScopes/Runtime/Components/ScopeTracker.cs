@@ -18,7 +18,7 @@ namespace Okancandev.UScopes
         public abstract void DestroySelf();
         public abstract void DestroySelfImmediate();
 
-        internal void DetachScopyInstance()
+        internal void DetachUScopesInstance()
         {
             UScopesInstance = null;
         }

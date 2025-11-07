@@ -74,9 +74,9 @@ namespace Okancandev.UScopes.Editor
                         EditorGUI.LabelField(cellRect, item.Id.ToString());
                     break;
                 case 4:
-                    if (item.Service is IScopyEditorExtraLabel customGUIService)
+                    if (item.Service is IUScopesEditorExtraLabel customGUIService)
                     {
-                        EditorGUI.LabelField(cellRect, customGUIService.OnScopyEditorExtraLabel());
+                        EditorGUI.LabelField(cellRect, customGUIService.OnUScopesEditorExtraLabel());
                     }
                     break;
             }

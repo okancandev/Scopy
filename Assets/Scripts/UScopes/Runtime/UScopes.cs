@@ -416,12 +416,12 @@ namespace Okancandev.UScopes
     }
 }
 
-public interface IScopyEditorCustomGUI
+public interface IUScopesEditorCustomGUI
 {
-    void OnScopyEditorGUI();
+    void OnUScopesEditorGUI();
 }
 
-public interface IScopyEditorExtraLabel
+public interface IUScopesEditorExtraLabel
 {
-    string OnScopyEditorExtraLabel();
+    string OnUScopesEditorExtraLabel();
 }

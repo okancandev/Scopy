@@ -5,7 +5,7 @@ namespace Okancandev.UScopes
 {
     public static class UScopesSceneExtensions
     {
-        public static UScopesInstance ScopyInstance(this Scene scene)
+        public static UScopesInstance UScopesInstance(this Scene scene)
         {
             return UScopes.DefaultInstance;
         }
@@ -28,7 +28,7 @@ namespace Okancandev.UScopes
 
     public static class UScopesGameObjectExtensions
     {
-        public static UScopesInstance ScopyInstance(this GameObject gameObject)
+        public static UScopesInstance UScopesInstance(this GameObject gameObject)
         {
             return UScopes.DefaultInstance;
         }

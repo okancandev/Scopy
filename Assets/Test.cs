@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using Okancandev.UScopes;
 using UnityEngine;
 
-public class Test : MonoBehaviour, IScopyEditorCustomGUI
+public class Test : MonoBehaviour, IUScopesEditorCustomGUI
 {
     public override string ToString()
     {
         return "Inited-Started-Ready";
     }
 
-    public void OnScopyEditorGUI()
+    public void OnUScopesEditorGUI()
     {
         GUILayout.Box("Ready");
         GUILayout.Box("Init");
